@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei";
+}
+
+html,
+body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none
+}
+
+/****************** app *****************/
+.skin {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+}
+
+#map {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-image: url("../images/map.png");
+}
+
+/****************** head *****************/
+.head {
+    display: flex;
+    width: 100%;
+    background-image: url("../images/head.png");
+    padding-left: 68px;
+}
+
+.title {
+    font-size: 34px;
+    color: white;
+    font-weight: bold;
+    line-height: 1.882;
+}
+
+/****************** nav *****************/
+.nav {
+    display: flex;
+    margin-left: 50px;
+    align-self: flex-end;
+}
+
+ul.nav > li {
+    margin-right: -5px;
+    width: 140px;
+    height: 50px;
+    background-image: url("../images/tab_normal.png");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+ul.nav > li.active,
+ul.nav > li:hover {
+    background-image: url("../images/tab_selected.png");
+}
+
+ul.nav > li > a {
+    font-size: 20px;
+    color: rgb(87, 249, 255);
+    font-weight: bold;
+    line-height: 3.2;
+}
+
+ul.nav > li.active > a,
+ul.nav > li:hover > a {
+    font-size: 20px;
+    color: rgb(180, 212, 255);
+    font-weight: bold;
+    line-height: 3.2;
+}

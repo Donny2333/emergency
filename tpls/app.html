@@ -1,0 +1,30 @@
+<div class="skin">
+    <div class="head">
+        <h2 class="title">智慧城市应急指挥系统</h2>
+        <ul class="nav">
+            <li ui-sref="app.fire" ui-sref-active="active">
+                <a>消防</a>
+            </li>
+            <li ui-sref="app.transport" ui-sref-active="active">
+                <a>交通</a>
+            </li>
+            <li ui-sref="app.call" ui-sref-active="active">
+                <a>呼叫中心</a>
+            </li>
+            <li ui-sref="app.video" ui-sref-active="active">
+                <a>视频中心</a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel">
+        <div class="left-panel">
+            <ui-view></ui-view>
+        </div>
+        <div class="right-panel">
+            <ui-view></ui-view>
+        </div>
+    </div>
+</div>
+
+<div id="map" class="map"></div>
+
