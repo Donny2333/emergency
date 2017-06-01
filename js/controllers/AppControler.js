@@ -5,7 +5,9 @@
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', function () {
-
-        })
+        .controller('AppController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+            $scope.toggleFullScreen = function () {
+                $rootScope.isFullscreen = !$rootScope.isFullscreen;
+            }
+        }])
 }());

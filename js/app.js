@@ -6,10 +6,13 @@
 
     angular.module('emergency', [
         'ngAnimate',
+        'FBAngular',
         'emergency.routers',
         'emergency.directives',
         'emergency.services',
         'emergency.controllers'
-    ]);
+    ]).run([function () {
+
+    }]);
 
 }());

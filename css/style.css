@@ -44,6 +44,7 @@ a {
     width: 100%;
     background-image: url("../images/head.png");
     padding-left: 68px;
+    cursor: pointer;
 }
 
 .title {

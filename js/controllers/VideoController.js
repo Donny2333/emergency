@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('emergency.controllers')
-        .controller('VideoController', function () {
+        .controller('VideoController', ['$scope', function ($scope) {
 
-        })
+        }])
 }());
