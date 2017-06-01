@@ -18,6 +18,7 @@
             var map = new ol.Map({
                 target: 'map',
                 layers: [new ol.layer.Image()],
+                controls: [],
                 view: new ol.View({
                     center: [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2],
                     extent: extent,
