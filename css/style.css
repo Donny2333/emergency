@@ -103,12 +103,12 @@ ul.nav > li:hover > a {
 .right {
     position: absolute;
     margin-top: 20px;
-    height: 950px;
+    height: 960px;
     width: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .left {

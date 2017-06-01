@@ -11,8 +11,6 @@
         'emergency.directives',
         'emergency.services',
         'emergency.controllers'
-    ]).run([function () {
-
-    }]);
+    ]);
 
 }());
