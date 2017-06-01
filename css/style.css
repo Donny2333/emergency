@@ -21,6 +21,7 @@ a {
 }
 
 /****************** app *****************/
+
 .skin {
     position: absolute;
     height: 100%;
@@ -52,6 +53,7 @@ a {
 }
 
 /****************** nav *****************/
+
 .nav {
     display: flex;
     margin-left: 50px;
@@ -87,4 +89,56 @@ ul.nav > li:hover > a {
     color: rgb(180, 212, 255);
     font-weight: bold;
     line-height: 3.2;
+}
+
+/****************** fire *****************/
+
+.left,
+.right {
+    position: fixed;
+    margin-top: 20px;
+    height: 950px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.left {
+    left: 0;
+}
+
+.left.ng-enter,
+.right.ng-leave {
+    animation: slideInLeft 0.5s both ease-in;
+}
+
+.left.ng-leave,
+.right.ng-enter {
+    animation: slideInRight 0.5s both ease-in;
+}
+
+.right {
+    right: 0;
+}
+
+/* slide in from the left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
