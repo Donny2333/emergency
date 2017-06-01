@@ -21,10 +21,13 @@
                 view: new ol.View({
                     center: [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2],
                     extent: extent,
-                    projection: projection,
-                    resolution: 0.0001
+                    projection: projection
                 })
             });
+
+            var size = map.getSize();
+            var resolution = (extent[2] - extent[0]) / size[0];
+            map.getView().setResolution(resolution);
 
 
             initMap(url);
