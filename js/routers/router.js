@@ -17,23 +17,55 @@
                 })
                 .state('app.fire', {
                     url: '/fire',
-                    templateUrl: './tpls/fire.html',
-                    controller: 'FireController'
+                    views: {
+                        left: {
+                            templateUrl: './tpls/fire/left.html',
+                            controller: 'FireController'
+                        },
+                        right: {
+                            templateUrl: './tpls/fire/right.html',
+                            controller: 'FireController'
+                        }
+                    }
                 })
                 .state('app.transport', {
                     url: '/transport',
-                    templateUrl: './tpls/transport.html',
-                    controller: 'TransportController'
+                    views: {
+                        left: {
+                            templateUrl: './tpls/transport/left.html',
+                            controller: 'TransportController'
+                        },
+                        right: {
+                            templateUrl: './tpls/transport/right.html',
+                            controller: 'TransportController'
+                        }
+                    }
                 })
                 .state('app.call', {
                     url: '/call',
-                    templateUrl: './tpls/call.html',
-                    controller: 'CallController'
+                    views: {
+                        left: {
+                            templateUrl: './tpls/call/left.html',
+                            controller: 'CallController'
+                        },
+                        right: {
+                            templateUrl: './tpls/call/right.html',
+                            controller: 'CallController'
+                        }
+                    }
                 })
                 .state('app.video', {
                     url: '/video',
-                    templateUrl: './tpls/video.html',
-                    controller: 'VideoController'
+                    views: {
+                        left: {
+                            templateUrl: './tpls/video/left.html',
+                            controller: 'VideoController'
+                        },
+                        right: {
+                            templateUrl: './tpls/video/right.html',
+                            controller: 'VideoController'
+                        }
+                    }
                 })
         }]);
 

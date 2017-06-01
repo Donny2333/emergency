@@ -10,6 +10,7 @@ body {
     position: relative;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 ul, li {
@@ -93,9 +94,13 @@ ul.nav > li:hover > a {
 
 /****************** fire *****************/
 
+.panel {
+    position: relative;
+}
+
 .left,
 .right {
-    position: fixed;
+    position: absolute;
     margin-top: 20px;
     height: 950px;
     width: 450px;
@@ -109,22 +114,48 @@ ul.nav > li:hover > a {
     left: 0;
 }
 
-.left.ng-enter,
-.right.ng-leave {
-    animation: slideInLeft 0.5s both ease-in;
-}
-
-.left.ng-leave,
-.right.ng-enter {
-    animation: slideInRight 0.5s both ease-in;
-}
-
 .right {
     right: 0;
 }
 
+.left.ng-enter {
+    animation: slideInLeft 0.5s ease-in;
+}
+
+.left.ng-leave {
+    animation: slideOutLeft 0.5s ease-in;
+}
+
+.right.ng-enter {
+    animation: slideInRight 0.5s ease-in;
+}
+
+.right.ng-leave {
+    animation: slideOutRight 0.5s ease-in;
+}
+
 /* slide in from the left */
 @keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* slide out to the left */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* slide out to the right */
+@keyframes slideOutRight {
     from {
         transform: translateX(0);
     }

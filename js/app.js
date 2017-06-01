@@ -5,6 +5,7 @@
     'use strict';
 
     angular.module('emergency', [
+        'ngAnimate',
         'emergency.routers',
         'emergency.directives',
         'emergency.services',
