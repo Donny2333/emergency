@@ -11,6 +11,7 @@ body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    background-color: #0c0d1f;
 }
 
 ul, li {
@@ -21,25 +22,28 @@ a {
     text-decoration: none
 }
 
-/****************** app *****************/
-
-.skin {
+.fireworks {
     position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: 100;
+    z-index: 1000;
+    pointer-events: none;
 }
+
+/****************** app *****************/
 
 #map {
     position: fixed;
+    top: 0;
     height: 100%;
     width: 100%;
     z-index: 1;
-    background-image: url("../images/map.png");
+    /*background-image: url("../images/map.png");*/
 }
 
 /****************** head *****************/
 .head {
+    position: absolute;
+    top: 0;
+    z-index: 100;
     display: flex;
     width: 100%;
     background-image: url("../images/head.png");
@@ -102,7 +106,8 @@ ul.nav > li:hover > a {
 .left,
 .right {
     position: absolute;
-    margin-top: 20px;
+    z-index: 100;
+    margin-top: 80px;
     height: 960px;
     width: 450px;
     display: flex;

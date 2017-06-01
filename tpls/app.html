@@ -1,4 +1,4 @@
-<div class="skin">
+<div id="map" class="map">
     <div class="head">
         <h2 class="title" ng-click="toggleFullScreen()">智慧城市应急指挥系统</h2>
         <ul class="nav">
@@ -16,10 +16,6 @@
             </li>
         </ul>
     </div>
-    <div class="panel">
-        <div class="left" ui-view="left"></div>
-        <div class="right" ui-view="right"></div>
-    </div>
+    <div class="left" ui-view="left"></div>
+    <div class="right" ui-view="right"></div>
 </div>
-
-<div id="map" class="map"></div>

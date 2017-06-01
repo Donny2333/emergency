@@ -9,6 +9,9 @@
     "angular": "^1.6.3",
     "angular-ui-router": "ui-router#^0.4.2",
     "angular-animate": "^1.6.4",
-    "angular-fullscreen": "^1.0.1"
+    "angular-fullscreen": "^1.0.1",
+    "d3": "^4.9.1",
+    "animejs": "^2.0.2",
+    "ol4": "^4.0.1"
   }
 }
