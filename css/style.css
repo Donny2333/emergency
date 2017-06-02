@@ -208,11 +208,6 @@ ul.nav > li:hover > a {
     left: 1px;
 }
 
-.watcher-border {
-    border: 2px solid rgb(29, 198, 241);
-    box-shadow: 0 0 10px red inset;
-}
-
 .watcher > svg {
     position: absolute;
     height: 100%;
