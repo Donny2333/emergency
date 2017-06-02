@@ -97,11 +97,7 @@ ul.nav > li:hover > a {
     line-height: 3.2;
 }
 
-/****************** fire *****************/
-
-.panel {
-    position: relative;
-}
+/****************** panel *****************/
 
 .left,
 .right {
@@ -178,4 +174,36 @@ ul.nav > li:hover > a {
     to {
         transform: translateX(0);
     }
+}
+
+/****************** fire *****************/
+
+.watcher {
+    position: relative;
+    display: flex;
+    height: 326px;
+    width: 426px;
+    justify-content: center;
+    clip-path: url(#svgPath);
+}
+
+.watcher:after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    height: 100%;
+    width: 100%;
+    background: url("../images/bg1.png") no-repeat;
+}
+
+.watcher > .video {
+    position: absolute;
+    top: -30px;
+}
+
+.watcher > .clipPath {
+    position: absolute;
+    top: 0;
+    left: 0;
 }

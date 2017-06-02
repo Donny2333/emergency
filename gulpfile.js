@@ -21,7 +21,11 @@ gulp.task('serve', ['js'], function () {
             }
         });
 
-        gulp.watch("tpls/*.html", ['reload']);
+        gulp.watch([
+            "*.html",
+            "tpls/*.html",
+            "tpls/**/*.html"
+        ], ['reload']);
         gulp.watch("css/*.css", ['reload']);
         gulp.watch("js/**/*.js", ['js', 'reload']);
     }
