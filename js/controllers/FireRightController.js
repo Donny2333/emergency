@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('emergency.controllers')
-        .controller('FireController', function () {
+        .controller('FireRightController', function () {
 
         })
 })(angular);

@@ -1,24 +1,36 @@
 <div class="watcher">
     <video class="video" autoplay controls>
-        <source src="http://192.168.99.107/ajide.mp4" type="video/mp4">
+        <!--<source src="http://192.168.99.107/ajide.mp4" type="video/mp4">-->
+        <source src="/video/mov.mp4" type="video/mp4">
         您的浏览器不支持 video 属性。
     </video>
-    <svg width="100%" height="100%">
+    <svg class="watcherBg" width="100%" height="100%">
         <defs>
             <clipPath id="svgPath">
-                <path d="M405.000,3.000 L289.046,3.000 L272.815,16.000 L22.637,16.000 L3.000,29.000 L2.985,309.334
-                      L21.970,323.000 L405.165,323.000 L423.000,310.720 L423.000,18.515 L405.000,3.000 Z"/>
+                <path d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334
+                      L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z"/>
             </clipPath>
             <radialGradient id="inlineShadow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
                 <stop offset="0" style="stop-color:#ffffff;stop-opacity:0"/>
-                <stop offset="1" style="stop-color:#00e8ff;stop-opacity:.2"/>
+                <stop offset="100%" style="stop-color:#00e8ff;stop-opacity:.2"/>
             </radialGradient>
         </defs>
-        <path fill-rule="evenodd" stroke="rgb(29, 198, 241)" stroke-width="4px"
-              fill="url(#inlineShadow)"
-              d="M405.000,3.000 L289.046,3.000 L272.815,16.000 L22.637,16.000 L3.000,29.000 L2.985,309.334
-                      L21.970,323.000 L405.165,323.000 L423.000,310.720 L423.000,18.515 L405.000,3.000 Z"/>
+        <path stroke="rgb(29, 198, 241)" stroke-width="4px" fill="url(#inlineShadow)"
+              d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334
+        L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z"/>
+    </svg>
+    <level-bar></level-bar>
+    <svg class="lvlBox" viewBox="0 0 365 36" enable-background="new 0 0 365 36">
+        <path fill="#74AE45" d="M0,0h84l14,18L84,36H0V0z"/>
+        <path fill="#E3B649" d="M89,0h84l14,18l-14,18H89l14-18.286L89,0z"/>
+        <path fill="#EF8645" d="M178,0h84l14,18l-14,18h-84l14-18.286L178,0z"/>
+        <path fill="#F25057" d="M267,0h84l14,18l-14,18h-84l14-18.286L267,0z"/>
+        <text x="15" y="23" fill="white" style="font-size: 14px">轻危险级</text>
+        <text x="112" y="23" fill="white" style="font-size: 14px">中危险级</text>
+        <text x="195" y="23" fill="white" style="font-size: 14px">严重危险级</text>
+        <text x="285" y="23" fill="white" style="font-size: 14px">仓库危险级</text>
     </svg>
 </div>
 <img src="images/bg2.png">
 <img src="images/bg3.png">
+

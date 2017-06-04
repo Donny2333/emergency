@@ -208,11 +208,25 @@ ul.nav > li:hover > a {
     left: 1px;
 }
 
-.watcher > svg {
+.watcher > .watcherBg {
     position: absolute;
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
     pointer-events: none;
+}
+
+.watcher > .lvlBar {
+    position: absolute;
+    height: 30px;
+    width: 100%;
+    bottom: 52px;
+}
+
+.watcher > .lvlBox {
+    position: absolute;
+    height: 36px;
+    width: 100%;
+    bottom: 12px;
 }

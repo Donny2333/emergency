@@ -20,11 +20,11 @@
                     views: {
                         left: {
                             templateUrl: './tpls/fire/left.html',
-                            controller: 'FireController'
+                            controller: 'FireLeftController'
                         },
                         right: {
                             templateUrl: './tpls/fire/right.html',
-                            controller: 'FireController'
+                            controller: 'FireRightController'
                         }
                     }
                 })
