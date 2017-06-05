@@ -33,6 +33,7 @@ a {
 #map {
     position: fixed;
     top: 0;
+    z-index: 100;
     height: 100%;
     width: 100%;
     z-index: 1;
@@ -113,27 +114,27 @@ ul.nav > li:hover > a {
 }
 
 .left {
-    left: 0;
+    left: 5px;
 }
 
 .right {
-    right: 0;
+    right: 5px;
 }
 
 .left.ng-enter {
-    animation: slideInLeft 0.5s ease-in;
+    animation: slideInLeft 0.3s ease-in;
 }
 
 .left.ng-leave {
-    animation: slideOutLeft 0.5s ease-in;
+    animation: slideOutLeft 0.3s ease-in;
 }
 
 .right.ng-enter {
-    animation: slideInRight 0.5s ease-in;
+    animation: slideInRight 0.3s ease-in;
 }
 
 .right.ng-leave {
-    animation: slideOutRight 0.5s ease-in;
+    animation: slideOutRight 0.3s ease-in;
 }
 
 /* slide in from the left */
@@ -196,7 +197,7 @@ ul.nav > li:hover > a {
     left: 3px;
     height: 100%;
     width: 100%;
-    /*background: url("../images/bg1.png") no-repeat;*/
+    background: url("../images/bg1.png") no-repeat;
     pointer-events: none;
 }
 
@@ -229,4 +230,71 @@ ul.nav > li:hover > a {
     height: 36px;
     width: 100%;
     bottom: 12px;
+}
+
+/****************** house *****************/
+
+.house {
+    position: relative;
+    height: 304px;
+    width: 421px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: url("/images/bg2.png");
+}
+
+.house > .title {
+    position: absolute;
+    top: -8px;
+    left: 25px;
+    font-size: 20px;
+    color: rgb(238, 238, 238);
+    font-weight: bold;
+    line-height: 2.6;
+    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.discription {
+    display: flex;
+    flex-direction: column;
+    height: 176px;
+    justify-content: space-between;
+}
+
+.discription > .line {
+    font-size: 14px;
+    color: #afc8d9;
+}
+
+.line > span {
+    color: #eeeeee;
+}
+
+/****************** people *****************/
+
+.people {
+    position: relative;
+    margin-left: -14px;
+    height: 312px;
+    width: 436px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: url("/images/bg3.png");
+}
+
+.people > .title {
+    position: absolute;
+    top: 5px;
+    left: 40px;
+    font-size: 20px;
+    color: rgb(238, 238, 238);
+    font-weight: bold;
+    line-height: 2.6;
+    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

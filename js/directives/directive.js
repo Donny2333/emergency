@@ -49,7 +49,7 @@
                 //             </svg>',
                 replace: true,
                 link: function (scope, element, attrs) {
-                    var level = 2;
+                    var level = attrs.level;
                     var h = 24;
                     var w = 22;
                     var t = 6;
@@ -64,7 +64,10 @@
                         "#f25057"
                     ];
 
-                    drawsvg();
+                    scope.$watch(attrs.level, function (value) {
+                        level = value;
+                        drawsvg();
+                    });
 
                     function drawBar(barset) {
                         var updateBar = lvlBar.selectAll("path")
@@ -151,7 +154,7 @@
                         $timeout(function () {
                             level = (level + 1) % 4;
                             drawsvg();
-                        }, 1500);
+                        }, 3000);
                     }
                 }
             }
