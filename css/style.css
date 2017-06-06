@@ -341,17 +341,87 @@ ul.nav > li:hover > a {
 /****************** brigade ****************/
 
 .brigade {
+    position: relative;
     height: 264px;
     width: 420px;
     background: url("/images/bg6.png");
 }
 
+.brigade > .title {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    font-size: 20px;
+    color: rgb(238, 238, 238);
+    font-weight: bold;
+    line-height: 2.6;
+    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brigade-list {
+    position: absolute;
+    top: 60px;
+    left: 30px;
+    overflow-x: auto;
+    height: 180px;
+    width: 360px;
+}
+
+.brigade-item {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(29, 198, 241, 0.2);
+}
+
+.brigade-item:last-child {
+    border-bottom: none;
+}
+
+.brigade-text {
+    height: 45px;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fefefe;
+}
+
+.brigade-text-num {
+    display: flex;
+    align-items: center;
+    color: #3ff8fb;
+    margin-left: -10px;
+}
+
+.brigade-text-num > * {
+    margin-left: 8px;
+}
+
 /***************** facility ****************/
 
 .facility {
+    position: relative;
     height: 269px;
     width: 438px;
     background: url("/images/bg7.png");
+}
+
+.facility > .title {
+    position: absolute;
+    top: 5px;
+    left: 40px;
+    font-size: 20px;
+    color: rgb(238, 238, 238);
+    font-weight: bold;
+    line-height: 2.6;
+    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /****************** weibo ***********8******/

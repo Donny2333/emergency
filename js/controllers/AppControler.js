@@ -40,6 +40,22 @@
             drawLine(truckPos2, firePos);
             drawTrucks([truckPos1, truckPos2]);
 
+            // var ws = new WebSocket('ws://192.168.99.107:12345');
+            //
+            // ws.onopen = function (evt) {
+            //     console.log('Connection open ...');
+            //     ws.send('Hello WebSockets!');
+            // };
+            //
+            // ws.onmessage = function (evt) {
+            //     console.log('Received Message: ' + evt.data);
+            //     ws.close();
+            // };
+
+            // ws.onclose = function (evt) {
+            //     console.log('Connection closed.');
+            // };
+
 
             function initMap(url, params) {
                 map.getLayers().item(0).setSource(new ol.source.ImageArcGISRest({

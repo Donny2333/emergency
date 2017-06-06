@@ -5,7 +5,26 @@
     'use strict';
 
     angular.module('emergency.controllers')
-        .controller('FireRightController', ['$timeout', function ($timeout) {
+        .controller('FireRightController', ['$scope', '$timeout', function ($scope, $timeout) {
+            var vm = $scope.vm = {
+                brigades: [{
+                    name: '东湖高新大队',
+                    distance: '10.4km',
+                    time: '20min'
+                }, {
+                    name: '东湖高新大队',
+                    distance: '10.4km',
+                    time: '20min'
+                }, {
+                    name: '东湖高新大队',
+                    distance: '10.4km',
+                    time: '20min'
+                }, {
+                    name: '东湖高新大队',
+                    distance: '10.4km',
+                    time: '20min'
+                }]
+            };
             var sun = document.getElementById('sun');
             var cloud = document.getElementById('cloud');
 
@@ -19,5 +38,7 @@
                 sun.style.transform = 'none';
                 cloud.style.transform = 'none';
             }, 500);
+
+
         }])
 })(angular);
