@@ -19,7 +19,7 @@
             // 获取一个区域，获取相关的样式，让浏览器寻找一个起始点。
             path.getBoundingClientRect();
             // 定义动作
-            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 5s 0.25s ease-in-out';
+            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 5s ease-in-out 0.25s';
             // Go!
             path.style.strokeDashoffset = '0';
         }])

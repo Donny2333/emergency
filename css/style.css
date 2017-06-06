@@ -296,3 +296,68 @@ ul.nav > li:hover > a {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/****************** legend *****************/
+
+.legend {
+    height: 185px;
+    width: 94px;
+    background: url("/images/bg4.png");
+}
+
+/****************** clock *****************/
+
+.clock {
+    display: flex;
+    margin-left: 5px;
+    height: 185px;
+    width: 318px;
+    background: url("/images/bg5.png");
+}
+
+.weather-icon {
+    margin: 15px;
+}
+
+.weather-text {
+    margin-top: 38px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.weather-text > .wind {
+    font-size: 30px;
+    color: rgb(254, 255, 255);
+    line-height: 1.067;
+}
+
+.weather-text > .temperature {
+    font-size: 14px;
+    color: #fff36e;
+}
+
+/****************** brigade ****************/
+
+.brigade {
+    height: 264px;
+    width: 420px;
+    background: url("/images/bg6.png");
+}
+
+/***************** facility ****************/
+
+.facility {
+    height: 269px;
+    width: 438px;
+    background: url("/images/bg7.png");
+}
+
+/****************** weibo ***********8******/
+
+.weibo {
+    height: 244px;
+    width: 436px;
+    background: url("/images/bg8.png");
+}
