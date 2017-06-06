@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('emergency.controllers')
-        .controller('FireLeftController', ['$scope', '$timeout', function ($scope, $timeout) {
+        .controller('FireLeftController', ['$scope', function ($scope) {
             var vm = $scope.vm = {
                 level: 3
             };
@@ -19,7 +19,7 @@
             // 获取一个区域，获取相关的样式，让浏览器寻找一个起始点。
             path.getBoundingClientRect();
             // 定义动作
-            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 3s 0.2s ease-in-out';
+            path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 5s 0.25s ease-in-out';
             // Go!
             path.style.strokeDashoffset = '0';
         }])
