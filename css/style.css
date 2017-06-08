@@ -14,7 +14,8 @@ body {
     background-color: #0c0d1f;
 }
 
-ul, li {
+ul,
+li {
     list-style: none;
 }
 
@@ -28,6 +29,7 @@ a {
     pointer-events: none;
 }
 
+
 /****************** app *****************/
 
 #map {
@@ -38,7 +40,9 @@ a {
     /*background-image: url("../images/map.png");*/
 }
 
+
 /****************** head *****************/
+
 .head {
     position: absolute;
     top: 0;
@@ -56,6 +60,7 @@ a {
     font-weight: bold;
     line-height: 1.882;
 }
+
 
 /****************** nav *****************/
 
@@ -96,6 +101,7 @@ ul.nav > li:hover > a {
     line-height: 3.2;
 }
 
+
 /****************** panel *****************/
 
 .left,
@@ -135,7 +141,9 @@ ul.nav > li:hover > a {
     animation: slideOutRight 0.3s ease-in;
 }
 
+
 /* slide in from the left */
+
 @keyframes slideInLeft {
     from {
         transform: translateX(-100%);
@@ -145,7 +153,9 @@ ul.nav > li:hover > a {
     }
 }
 
+
 /* slide out to the left */
+
 @keyframes slideOutLeft {
     from {
         transform: translateX(0);
@@ -155,7 +165,9 @@ ul.nav > li:hover > a {
     }
 }
 
+
 /* slide out to the right */
+
 @keyframes slideOutRight {
     from {
         transform: translateX(0);
@@ -165,7 +177,9 @@ ul.nav > li:hover > a {
     }
 }
 
+
 /* slide in from the right */
+
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -174,6 +188,7 @@ ul.nav > li:hover > a {
         transform: translateX(0);
     }
 }
+
 
 /****************** fire *****************/
 
@@ -230,6 +245,7 @@ ul.nav > li:hover > a {
     bottom: 12px;
 }
 
+
 /****************** house *****************/
 
 .house {
@@ -271,6 +287,7 @@ ul.nav > li:hover > a {
     color: #eeeeee;
 }
 
+
 /****************** people *****************/
 
 .people {
@@ -297,6 +314,7 @@ ul.nav > li:hover > a {
     -webkit-text-fill-color: transparent;
 }
 
+
 /****************** legend *****************/
 
 .legend {
@@ -304,6 +322,7 @@ ul.nav > li:hover > a {
     width: 94px;
     background: url("/images/bg4.png");
 }
+
 
 /****************** clock *****************/
 
@@ -337,6 +356,7 @@ ul.nav > li:hover > a {
     font-size: 14px;
     color: #fff36e;
 }
+
 
 /****************** brigade ****************/
 
@@ -402,10 +422,14 @@ ul.nav > li:hover > a {
     margin-left: 8px;
 }
 
+
 /***************** facility ****************/
 
 .facility {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 269px;
     width: 438px;
     background: url("/images/bg7.png");
@@ -424,10 +448,51 @@ ul.nav > li:hover > a {
     -webkit-text-fill-color: transparent;
 }
 
+.facility > .area {
+    margin-top: 40px;
+}
+
+
 /****************** weibo ***********8******/
 
 .weibo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 244px;
     width: 436px;
     background: url("/images/bg8.png");
+}
+
+.weibo-list {
+    height: 200px;
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+}
+
+.weibo-item {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(29, 198, 241, 0.2);
+}
+
+.weibo-item:last-child {
+    border-bottom: none;
+}
+
+.weibo-text {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #e9eda8;
+}
+
+.weibo-author {
+    margin-right: 5px;
+}
+
+.weibo-content {
+    color: #afc8d9;
 }

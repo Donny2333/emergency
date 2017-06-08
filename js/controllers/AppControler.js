@@ -1,12 +1,12 @@
 /**
  * Created by Donny on 17/3/22.
  */
-(function (angular) {
+(function(angular) {
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', ['$scope', '$rootScope', 'Route', function ($scope, $rootScope, Route) {
-            $scope.toggleFullScreen = function () {
+        .controller('AppController', ['$scope', '$rootScope', '$http', 'Route', 'FullFeatures', function($scope, $rootScope, $http, Route, FullFeatures) {
+            $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
 
@@ -19,9 +19,13 @@
                 code: 'EPSG:4490',
                 units: 'degrees'
             });
+            var layerLHK = new ol.layer.Image();
+
             var map = new ol.Map({
                 target: 'map',
-                layers: [new ol.layer.Image()],
+                layers: [
+                    layerLHK
+                ],
                 controls: [],
                 view: new ol.View({
                     center: [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2],
@@ -34,11 +38,131 @@
             var resolution = (extent[2] - extent[0]) / size[0];
             map.getView().setResolution(resolution);
 
-
             initMap(url);
-            drawLine(truckPos1, firePos, '#aeea92');
-            drawLine(truckPos2, firePos);
-            drawTrucks([truckPos1, truckPos2]);
+            drawPath(truckPos1, firePos, null, '/images/firetruck.png');
+            drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
+
+            drawPoints([firePos], new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/images/fire.png'
+                })
+            }));
+            // drawPoints([truckPos1], new ol.style.Style({
+            //     image: new ol.style.Icon({
+            //         src: '/images/firetruck.png'
+            //     })
+            // }));
+            // drawPoints([truckPos2], new ol.style.Style({
+            //     image: new ol.style.Icon({
+            //         src: '/images/ambulance.png'
+            //     })
+            // }));
+
+            FullFeatures.query({
+                type: '救援队伍',
+                keyword: '消防队',
+                point: firePos.join(','),
+                distance: 5000
+            }).then(function(res) {
+                var pts = [];
+                var results = res.data.result.Result[0].Result;
+                results.map(function(result) {
+                    var shape = result.Shape;
+                    var pt = [
+                        parseFloat(shape.slice(0, shape.indexOf(','))),
+                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                    ];
+                    pts.push(pt);
+                });
+                // console.log(pts);
+                drawPoints(pts, new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: '/images/firefighter.png'
+                    })
+                }));
+
+            }, function(err) {
+                console.log(err);
+            });
+
+            FullFeatures.query({
+                type: '医疗机构',
+                point: firePos.join(','),
+                distance: 5000
+            }).then(function(res) {
+                var pts = [];
+                var results = res.data.result.Result[0].Result;
+                results.map(function(result) {
+                    var shape = result.Shape;
+                    var pt = [
+                        parseFloat(shape.slice(0, shape.indexOf(','))),
+                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                    ];
+                    pts.push(pt);
+                });
+                // console.log(pts);
+                drawPoints(pts, new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: '/images/hospital.png'
+                    })
+                }));
+            }, function(err) {
+                console.log(err);
+            });
+
+            FullFeatures.query({
+                type: '危险源',
+                pageSize: 80,
+                point: firePos.join(','),
+                distance: 5000
+            }).then(function(res) {
+                var pts = [];
+                var results = res.data.result.Result[0].Result;
+                results.map(function(result) {
+                    var shape = result.Shape;
+                    var pt = [
+                        parseFloat(shape.slice(0, shape.indexOf(','))),
+                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                    ];
+                    pts.push(pt);
+                });
+                console.log(pts);
+                drawPoints(pts, new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: '/images/facility.png'
+                    })
+                }));
+
+            }, function(err) {
+                console.log(err);
+            });
+
+            FullFeatures.query({
+                type: '消防栓',
+                pageSize: 50,
+                point: firePos.join(','),
+                distance: 5000
+            }).then(function(res) {
+                var pts = [];
+                var results = res.data.result.Result[0].Result;
+                results.map(function(result) {
+                    var shape = result.Shape;
+                    var pt = [
+                        parseFloat(shape.slice(0, shape.indexOf(','))),
+                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                    ];
+                    pts.push(pt);
+                });
+                // console.log(pts);
+                drawPoints(pts, new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: '/images/fireplug.png'
+                    })
+                }));
+
+            }, function(err) {
+                console.log(err);
+            });
 
             // var ws = new WebSocket('ws://192.168.99.107:12345');
             //
@@ -49,12 +173,12 @@
             //
             // ws.onmessage = function (evt) {
             //     console.log('Received Message: ' + evt.data);
-            //     ws.close();
+            //     // ws.close();
             // };
-
-            // ws.onclose = function (evt) {
-            //     console.log('Connection closed.');
-            // };
+            //
+            // // ws.onclose = function (evt) {
+            // //     console.log('Connection closed.');
+            // // };
 
 
             function initMap(url, params) {
@@ -64,63 +188,177 @@
                 }));
             }
 
-            function drawTrucks(pos) {
-                var trucks = [];
-                pos.map(function (point) {
-                    trucks.push(new ol.Feature(new ol.geom.Point(point)));
-                });
-                var layerTrucks = new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: trucks
-                    }),
-                    style: new ol.style.Style({
-                        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-                            anchor: [0.2, 18],
-                            anchorXUnits: 'fraction',
-                            anchorYUnits: 'pixels',
-                            opacity: 0.95,
-                            src: '/images/fireTruck.png'
-                        }))
-                    }),
-                    zIndex: 1
-                });
-                map.addLayer(layerTrucks);
+            function startAnimation() {
+                if (animating) {
+                    stopAnimation(false);
+                } else {
+                    animating = true;
+                    now = new Date().getTime();
+                    speed = speedInput.value;
+                    startButton.textContent = 'Cancel Animation';
+                    // hide geoMarker
+                    geoMarker.setStyle(null);
+                    // just in case you pan somewhere else
+                    map.getView().setCenter(center);
+                    map.on('postcompose', moveFeature);
+                    map.render();
+                }
             }
 
-            function drawLine(start, end, color) {
+
+
+            function drawPoints(pts, style) {
+                var points = [];
+                points.push(new ol.Feature(new ol.geom.MultiPoint(pts)));
+
+                var layerPoints = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: points
+                    }),
+                    style: style,
+                    zIndex: 10
+                });
+                map.addLayer(layerPoints);
+            }
+
+            function drawPath(start, end, color, img) {
                 Route.drive({
                     origin: start,
                     destination: end
-                }).then(function (res) {
+                }).then(function(res) {
                     if (res.status === 200) {
-                        console.log(res.data.result);
+                        // console.log(res.data.result);
+                        var layerLines;
+                        var layerTrucks;
                         var routeStyle = new ol.style.Style({
                             stroke: new ol.style.Stroke({
                                 color: color || '#ff6600',
                                 width: 5
                             })
                         });
+                        var truckStyle = new ol.style.Style({
+                            image: new ol.style.Icon({
+                                src: img || '/images/firetruck.png'
+                            })
+                        })
                         var steps = res.data.result.routes[0].steps;
                         var routes = [];
+                        var lines = [];
                         for (var i = 0; i < steps.length; i++) {
-                            var routeFeature = new ol.Feature(new ol.geom.LineString(eval('([[' + steps[i].path.replace(new RegExp(/(;)/g), '],[') + ']])')));
-                            routeFeature.setStyle(routeStyle);
-                            routes.push(routeFeature);
+                            // var routeFeature = new ol.Feature(new ol.geom.LineString(eval('([[' + steps[i].path.replace(new RegExp(/(;)/g), '],[') + ']])')));
+                            // routeFeature.setStyle(routeStyle);
+                            // routes.push(routeFeature);
+                            lines.push(eval('([[' + steps[i].path.replace(new RegExp(/(;)/g), '],[') + ']])'));
                         }
 
-                        var layerLines = new ol.layer.Vector({
-                            source: new ol.source.Vector({
-                                features: routes
-                            })
-                        });
 
-                        map.addLayer(layerLines);
+                        var list = [];
+                        lines.map(function(value) {
+                            list = _.concat(list, value);
+                        });
+                        draw(list, routeStyle, 10, 500);
+                        // drawLines(list, routeStyle);
+
+                        function draw(list, style, steps, time) {
+                            drawLines(list.slice(1), routeStyle);
+                            drawTrucks([list[0]], truckStyle);
+                            drawAnimatedLine(list[0], list[1], style, steps, time, function() {
+                                list.shift();
+                                if (list.length >= 2) {
+                                    drawTrucks([list[0]], truckStyle);
+                                    draw(list, style, steps, time);
+                                }
+                            });
+                        }
+
+                        function drawLines(lines, style) {
+                            if (layerLines) {
+                                map.removeLayer(layerLines);
+                            }
+                            layerLines = new ol.layer.Vector({
+                                source: new ol.source.Vector({
+                                    features: [
+                                        new ol.Feature({
+                                            geometry: new ol.geom.LineString(lines)
+                                        })
+                                    ]
+                                }),
+                                style: style
+                            })
+                            map.addLayer(layerLines);
+                        }
+
+                        function drawTrucks(pos, style) {
+                            if (layerTrucks) {
+                                map.removeLayer(layerTrucks);
+                            }
+                            var trucks = [];
+                            pos.map(function(point) {
+                                trucks.push(new ol.Feature(new ol.geom.Point(point)));
+                            });
+                            layerTrucks = new ol.layer.Vector({
+                                source: new ol.source.Vector({
+                                    features: trucks
+                                }),
+                                style: style,
+                                zIndex: 1
+                            });
+                            map.addLayer(layerTrucks);
+                        }
+
                     } else {
                         console.error(res);
                     }
-                }, function (err) {
+                }, function(err) {
                     console.error(err);
                 });
+            }
+
+            function drawLine(startPt, endPt, style) {
+                var line = new ol.geom.LineString([startPt, endPt]);
+
+                var layerLines = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [new ol.Feature(line)]
+                    }),
+                    style: style
+                });
+
+                map.addLayer(layerLines);
+            }
+
+            function drawAnimatedLine(startPt, endPt, style, steps, time, fn) {
+                var directionX = (endPt[0] - startPt[0]) / steps;
+                var directionY = (endPt[1] - startPt[1]) / steps;
+
+                var i = 0;
+                var prevLayer;
+                var ivlDraw = setInterval(function() {
+                    if (i > steps) {
+                        clearInterval(ivlDraw);
+                        if (prevLayer) map.removeLayer(prevLayer);
+                        if (fn) fn();
+                        return;
+                    }
+                    // var newEndPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
+                    var newStartPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
+
+                    // var line = new ol.geom.LineString([startPt, newEndPt]);
+                    var line = new ol.geom.LineString([newStartPt, endPt]);
+
+                    var vec = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: [new ol.Feature(line)]
+                        }),
+                        style: style,
+                        zIndex: 10
+                    });
+
+                    map.addLayer(vec);
+                    if (prevLayer) map.removeLayer(prevLayer);
+                    prevLayer = vec;
+                    i++;
+                }, time / steps);
             }
         }])
 })(angular);
