@@ -8,15 +8,15 @@
         .controller('FireRightController', ['$scope', '$timeout', function($scope, $timeout) {
             var vm = $scope.vm = {
                 brigades: [{
-                    name: '东湖高新大队',
+                    name: '老河口高新大队',
                     distance: '10.4km',
                     time: '20min'
                 }, {
-                    name: '东湖高新大队',
+                    name: '老河口高新大队',
                     distance: '10.4km',
                     time: '20min'
                 }, {
-                    name: '东湖高新大队',
+                    name: '老河口高新大队',
                     distance: '10.4km',
                     time: '20min'
                 }],

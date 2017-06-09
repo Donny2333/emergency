@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', ['$scope', '$rootScope', '$http', 'Route', 'FullFeatures', function($scope, $rootScope, $http, Route, FullFeatures) {
+        .controller('AppController', ['$scope', '$rootScope', '$http', 'Route', 'FullFeatures', '$timeout', function($scope, $rootScope, $http, Route, FullFeatures, $timeout) {
             $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
@@ -42,9 +42,91 @@
             drawPath(truckPos1, firePos, null, '/images/firetruck.png');
             drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
 
+
+            // Set canvas drawing surface
+            var space = document.createElement("canvas");
+            space.backgroundColor = "red";
+            var surface = space.getContext("2d");
+
+            // Set Particles
+            var particles = [];
+            var particle_count = 150;
+            for (var i = 0; i < particle_count; i++) {
+                particles.push(new particle());
+            }
+            var time = 0;
+            // Set wrapper and canvas items size
+            var canvasWidth = 80;
+            var canvasHeight = 160;
+
+            // shim layer with setTimeout fallback from Paul Irish
+            window.requestAnimFrame = (function() {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    function(callback) {
+                        window.setTimeout(callback, 6000 / 60);
+                    };
+            })();
+
+            function particle() {
+                this.speed = { x: -1 + Math.random() * 2, y: -5 + Math.random() * 5 };
+                canvasWidth = 80;
+                canvasHeight = 160;
+                this.location = { x: canvasWidth / 2, y: (canvasHeight / 2) + 35 };
+                this.radius = .5 + Math.random() * 1;
+
+                this.life = 10 + Math.random() * 10;
+                this.death = this.life;
+
+                this.r = 255;
+                this.g = Math.round(Math.random() * 155);
+                this.b = 0;
+            }
+
+            function ParticleAnimation() {
+                surface.globalCompositeOperation = "source-over";
+                surface.fillStyle = "rgba(0, 0, 0, 1)";
+                surface.fillRect(0, 0, canvasWidth, canvasHeight);
+                surface.globalCompositeOperation = "lighter";
+
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+
+                    surface.beginPath();
+
+                    p.opacity = Math.round(p.death / p.life * 100) / 100
+                    var gradient = surface.createRadialGradient(p.location.x, p.location.y, 0, p.location.x, p.location.y, p.radius);
+                    gradient.addColorStop(0, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
+                    gradient.addColorStop(0.5, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
+                    gradient.addColorStop(1, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", 0)");
+                    surface.fillStyle = gradient;
+                    surface.arc(p.location.x, p.location.y, p.radius, Math.PI * 2, false);
+                    surface.fill();
+                    p.death--;
+                    p.radius++;
+                    p.location.x += (p.speed.x);
+                    p.location.y += (p.speed.y);
+
+                    //regenerate particles
+                    if (p.death < 0 || p.radius < 0) {
+                        //a brand new particle replacing the dead one
+                        particles[i] = new particle();
+                    }
+                }
+
+                requestAnimFrame(ParticleAnimation);
+            }
+
+
+            ParticleAnimation();
+
+
             drawPoints([firePos], new ol.style.Style({
                 image: new ol.style.Icon({
-                    src: '/images/fire.png'
+                    src: '/images/fire.png',
+                    // img: space,
+                    // imgSize: [canvasWidth, canvasHeight]
                 })
             }));
             // drawPoints([truckPos1], new ol.style.Style({
@@ -205,8 +287,6 @@
                 }
             }
 
-
-
             function drawPoints(pts, style) {
                 var points = [];
                 points.push(new ol.Feature(new ol.geom.MultiPoint(pts)));
@@ -256,17 +336,16 @@
                         lines.map(function(value) {
                             list = _.concat(list, value);
                         });
-                        draw(list, routeStyle, 10, 500);
+                        draw(list, routeStyle, truckStyle, 20, 1000);
                         // drawLines(list, routeStyle);
 
-                        function draw(list, style, steps, time) {
+                        function draw(list, style, truckStyle, steps, time) {
                             drawLines(list.slice(1), routeStyle);
-                            drawTrucks([list[0]], truckStyle);
-                            drawAnimatedLine(list[0], list[1], style, steps, time, function() {
+                            drawAnimatedLine(list[0], list[1], style, truckStyle, steps, time, function() {
                                 list.shift();
                                 if (list.length >= 2) {
-                                    drawTrucks([list[0]], truckStyle);
-                                    draw(list, style, steps, time);
+                                    // drawTrucks([list[0]], truckStyle);
+                                    draw(list, style, truckStyle, steps, time);
                                 }
                             });
                         }
@@ -288,22 +367,61 @@
                             map.addLayer(layerLines);
                         }
 
-                        function drawTrucks(pos, style) {
-                            if (layerTrucks) {
-                                map.removeLayer(layerTrucks);
+                        function drawAnimatedLine(startPt, endPt, style, truckStyle, steps, time, fn) {
+                            var directionX = (endPt[0] - startPt[0]) / steps;
+                            var directionY = (endPt[1] - startPt[1]) / steps;
+
+                            var i = 0;
+                            var prevLayer;
+                            var ivlDraw = setInterval(function() {
+                                if (i > steps) {
+                                    clearInterval(ivlDraw);
+                                    if (prevLayer) map.removeLayer(prevLayer);
+                                    if (fn) fn();
+                                    return;
+                                }
+                                // var newEndPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
+                                var newStartPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
+
+                                // var line = new ol.geom.LineString([startPt, newEndPt]);
+                                var line = new ol.geom.LineString([newStartPt, endPt]);
+
+                                var vec = new ol.layer.Vector({
+                                    source: new ol.source.Vector({
+                                        features: [new ol.Feature(line)]
+                                    }),
+                                    style: style,
+                                    zIndex: 10
+                                });
+
+                                map.addLayer(vec);
+                                if (prevLayer) map.removeLayer(prevLayer);
+                                drawTrucks([newStartPt], truckStyle);
+                                prevLayer = vec;
+                                i++;
+                            }, time / steps);
+
+                            function drawTrucks(pos, style) {
+                                if (layerTrucks) {
+                                    var source = layerTrucks.getSource();
+                                    source.getFeatures()[0].getGeometry().setCoordinates(pos[0]);
+                                    // map.removeLayer(layerTrucks);
+                                } else {
+                                    var trucks = [];
+                                    pos.map(function(point) {
+                                        trucks.push(new ol.Feature(new ol.geom.Point(point)));
+                                    });
+                                    layerTrucks = new ol.layer.Vector({
+                                        source: new ol.source.Vector({
+                                            features: trucks
+                                        }),
+                                        style: style,
+                                        updateWhileAnimating: true,
+                                        zIndex: 1
+                                    });
+                                    map.addLayer(layerTrucks);
+                                }
                             }
-                            var trucks = [];
-                            pos.map(function(point) {
-                                trucks.push(new ol.Feature(new ol.geom.Point(point)));
-                            });
-                            layerTrucks = new ol.layer.Vector({
-                                source: new ol.source.Vector({
-                                    features: trucks
-                                }),
-                                style: style,
-                                zIndex: 1
-                            });
-                            map.addLayer(layerTrucks);
                         }
 
                     } else {
@@ -325,40 +443,6 @@
                 });
 
                 map.addLayer(layerLines);
-            }
-
-            function drawAnimatedLine(startPt, endPt, style, steps, time, fn) {
-                var directionX = (endPt[0] - startPt[0]) / steps;
-                var directionY = (endPt[1] - startPt[1]) / steps;
-
-                var i = 0;
-                var prevLayer;
-                var ivlDraw = setInterval(function() {
-                    if (i > steps) {
-                        clearInterval(ivlDraw);
-                        if (prevLayer) map.removeLayer(prevLayer);
-                        if (fn) fn();
-                        return;
-                    }
-                    // var newEndPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
-                    var newStartPt = [startPt[0] + i * directionX, startPt[1] + i * directionY];
-
-                    // var line = new ol.geom.LineString([startPt, newEndPt]);
-                    var line = new ol.geom.LineString([newStartPt, endPt]);
-
-                    var vec = new ol.layer.Vector({
-                        source: new ol.source.Vector({
-                            features: [new ol.Feature(line)]
-                        }),
-                        style: style,
-                        zIndex: 10
-                    });
-
-                    map.addLayer(vec);
-                    if (prevLayer) map.removeLayer(prevLayer);
-                    prevLayer = vec;
-                    i++;
-                }, time / steps);
             }
         }])
 })(angular);

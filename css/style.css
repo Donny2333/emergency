@@ -328,10 +328,11 @@ ul.nav > li:hover > a {
 
 .clock {
     display: flex;
-    margin-left: 5px;
     height: 185px;
-    width: 318px;
+    width: 420px;
     background: url("/images/bg5.png");
+    justify-content: center;
+    align-items: center;
 }
 
 .weather-icon {

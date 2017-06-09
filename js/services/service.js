@@ -69,10 +69,11 @@
         }
     }])
 
-    .factory('Route', ['Http', 'LEADOR_API_URL', 'LEADOR_AK', function(Http, LEADOR_API_URL, LEADOR_AK) {
+    .factory('Route', ['$http', 'Http', 'LEADOR_API_URL', 'LEADOR_AK', function($http, Http, LEADOR_API_URL, LEADOR_AK) {
         var url = LEADOR_API_URL;
         return {
             drive: function(params) {
+                $http.defaults.jsonpCallbackParam = 'callback';
                 angular.extend(params, {
                     coord_type: 'gcj02',
                     tactics: 5, // 0:费用优先，2:国道优先，4:省道优先，5:不走高速，6:多策略1，10:不走快速路，11:速度优先，12:距离优先
