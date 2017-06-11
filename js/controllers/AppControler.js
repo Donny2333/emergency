@@ -14,7 +14,8 @@
                 $window.open('http://111.47.18.22:8082/kpi/kpiController.do?kpi', '_blank');
             };
 
-            var url = 'http://192.168.250.45:6080/arcgis/rest/services/ThemeMap/MapServer';
+            // var url = 'http://192.168.250.45:6080/arcgis/rest/services/ThemeMap/MapServer';
+            var url = 'http://111.47.18.22:6088/arcgis/rest/services/ThemeMap/MapServer';
             var extent = [111.63519615524577, 32.373406903804636, 111.72406902381353, 32.413810151683634];
             var truckPos1 = [111.688, 32.38];
             var truckPos2 = [111.7, 32.4];
