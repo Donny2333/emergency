@@ -1,11 +1,11 @@
 /**
  * Created by Donny on 17/3/22.
  */
-(function (angular) {
+(function(angular) {
     'use strict';
 
     angular.module('emergency.routers', ['ui.router'])
-        .config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+        .config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
             $urlRouterProvider.otherwise('/app/fire');
 
             $stateProvider
@@ -64,6 +64,19 @@
                         right: {
                             templateUrl: './tpls/video/right.html',
                             controller: 'VideoController'
+                        }
+                    }
+                })
+                .state('app.kpi', {
+                    url: '/kpi',
+                    views: {
+                        left: {
+                            templateUrl: './tpls/kpi/left.html',
+                            controller: 'KpiController'
+                        },
+                        right: {
+                            templateUrl: './tpls/kpi/right.html',
+                            controller: 'KpiController'
                         }
                     }
                 })

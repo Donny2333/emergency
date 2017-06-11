@@ -21,9 +21,9 @@
                     time: '20min'
                 }],
                 dateTime: {
-                    time: '17:39',
-                    date: '5月10日',
-                    nongli: '四月十五'
+                    time: '16:39',
+                    date: '6月11日',
+                    nongli: '五月十七'
                 },
                 weibos: [{
                     avatar: '/images/avatar1.png',
