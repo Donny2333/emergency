@@ -20,11 +20,6 @@
                     distance: '10.4km',
                     time: '20min'
                 }],
-                dateTime: {
-                    time: '16:39',
-                    date: '6月11日',
-                    nongli: '五月十七'
-                },
                 weibos: [{
                     avatar: '/images/avatar1.png',
                     author: '吃鱼的小猫',
@@ -64,37 +59,45 @@
                 }]
             };
 
-            setInterval(function() {
-                vm.bar = [{
+            var i = 0;
+            var bar = [
+                [{
                     name: "燃料仓库",
-                    value: Math.random() * 40
+                    value: 38
                 }, {
                     name: "油库",
-                    value: Math.random() * 40
+                    value: 16
                 }, {
                     name: "燃气设施",
-                    value: Math.random() * 40
+                    value: 26
                 }, {
                     name: "化工厂",
-                    value: Math.random() * 40
+                    value: 36
                 }, {
                     name: "烟花仓库",
-                    value: Math.random() * 40
-                }];
+                    value: 22
+                }],
+                [{
+                    name: "加油站",
+                    value: 12
+                }, {
+                    name: "棉花厂",
+                    value: 36
+                }, {
+                    name: "面粉厂",
+                    value: 22
+                }, {
+                    name: "小吃餐馆",
+                    value: 16
+                }, {
+                    name: "粮仓",
+                    value: 28
+                }]
+            ];
+
+            setInterval(function() {
+                i = (i + 1) % 2;
+                vm.bar = bar[i];
             }, 3000);
-
-            var sun = document.getElementById('sun');
-            var cloud = document.getElementById('cloud');
-
-            sun.style.transition = sun.style.WebkitTransition = 'none';
-            sun.style.transition = sun.style.WebkitTransition = 'transform 0.5s ease-in-out 0.5s';
-            cloud.style.transition = cloud.style.WebkitTransition = 'transform 0.5s ease-in-out 0.5s';
-            sun.style.transform = 'translate(16px, 16px)';
-            cloud.style.transform = 'translate(-12px, 0)';
-
-            $timeout(function() {
-                sun.style.transform = 'none';
-                cloud.style.transform = 'none';
-            }, 500);
         }])
 })(angular);

@@ -1,12 +1,12 @@
 /**
  * Created by Donny on 17/3/22.
  */
-(function (angular) {
+(function(angular) {
     'use strict';
 
     angular.module('emergency.routers', ['ui.router'])
-        .config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function ($urlRouterProvider, $locationProvider, $stateProvider) {
-            $urlRouterProvider.otherwise('/app/fire');
+        .config(['$urlRouterProvider', '$locationProvider', '$stateProvider', function($urlRouterProvider, $locationProvider, $stateProvider) {
+            $urlRouterProvider.otherwise('/app/kpi');
             // $locationProvider.html5Mode(true);
 
             $stateProvider
@@ -82,5 +82,4 @@
                     }
                 })
         }]);
-
 })(angular);

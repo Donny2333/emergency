@@ -48,90 +48,86 @@
             drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
 
 
-            // // Set canvas drawing surface
-            // var space = document.createElement("canvas");
-            // space.backgroundColor = "red";
-            // var surface = space.getContext("2d");
+            // Set canvas drawing surface
+            var space = document.createElement("canvas");
+            var surface = space.getContext("2d");
 
-            // // Set Particles
-            // var particles = [];
-            // var particle_count = 150;
-            // for (var i = 0; i < particle_count; i++) {
-            //     particles.push(new particle());
-            // }
-            // var time = 0;
-            // // Set wrapper and canvas items size
-            // var canvasWidth = 80;
-            // var canvasHeight = 160;
+            // Set Particles
+            var particles = [];
+            var particle_count = 150;
+            for (var i = 0; i < particle_count; i++) {
+                particles.push(new particle());
+            }
+            var time = 0;
+            // Set wrapper and canvas items size
+            var canvasWidth = 80;
+            var canvasHeight = 160;
 
-            // // shim layer with setTimeout fallback from Paul Irish
-            // window.requestAnimFrame = (function() {
-            //     return window.requestAnimationFrame ||
-            //         window.webkitRequestAnimationFrame ||
-            //         window.mozRequestAnimationFrame ||
-            //         function(callback) {
-            //             window.setTimeout(callback, 6000 / 60);
-            //         };
-            // })();
+            // shim layer with setTimeout fallback from Paul Irish
+            window.requestAnimFrame = (function() {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    function(callback) {
+                        window.setTimeout(callback, 6000 / 60);
+                    };
+            })();
 
-            // function particle() {
-            //     this.speed = { x: -1 + Math.random() * 2, y: -5 + Math.random() * 5 };
-            //     canvasWidth = 80;
-            //     canvasHeight = 160;
-            //     this.location = { x: canvasWidth / 2, y: (canvasHeight / 2) + 35 };
-            //     this.radius = .5 + Math.random() * 1;
+            function particle() {
+                this.speed = { x: -1 + Math.random() * 2, y: -5 + Math.random() * 5 };
+                canvasWidth = 80;
+                canvasHeight = 160;
+                this.location = { x: canvasWidth / 2, y: (canvasHeight / 2) + 35 };
+                this.radius = .5 + Math.random() * 1;
 
-            //     this.life = 10 + Math.random() * 10;
-            //     this.death = this.life;
+                this.life = 10 + Math.random() * 10;
+                this.death = this.life;
 
-            //     this.r = 255;
-            //     this.g = Math.round(Math.random() * 155);
-            //     this.b = 0;
-            // }
+                this.r = 255;
+                this.g = Math.round(Math.random() * 155);
+                this.b = 0;
+            }
 
-            // function ParticleAnimation() {
-            //     surface.globalCompositeOperation = "source-over";
-            //     surface.fillStyle = "rgba(0, 0, 0, 1)";
-            //     surface.fillRect(0, 0, canvasWidth, canvasHeight);
-            //     surface.globalCompositeOperation = "lighter";
+            function ParticleAnimation() {
+                surface.globalCompositeOperation = "source-over";
+                surface.clearRect(0, 0, canvasWidth, canvasHeight);
+                surface.globalCompositeOperation = "lighter";
 
-            //     for (var i = 0; i < particles.length; i++) {
-            //         var p = particles[i];
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
 
-            //         surface.beginPath();
+                    surface.beginPath();
 
-            //         p.opacity = Math.round(p.death / p.life * 100) / 100
-            //         var gradient = surface.createRadialGradient(p.location.x, p.location.y, 0, p.location.x, p.location.y, p.radius);
-            //         gradient.addColorStop(0, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
-            //         gradient.addColorStop(0.5, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
-            //         gradient.addColorStop(1, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", 0)");
-            //         surface.fillStyle = gradient;
-            //         surface.arc(p.location.x, p.location.y, p.radius, Math.PI * 2, false);
-            //         surface.fill();
-            //         p.death--;
-            //         p.radius++;
-            //         p.location.x += (p.speed.x);
-            //         p.location.y += (p.speed.y);
+                    p.opacity = Math.round(p.death / p.life * 100) / 100
+                    var gradient = surface.createRadialGradient(p.location.x, p.location.y, 0, p.location.x, p.location.y, p.radius);
+                    gradient.addColorStop(0, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
+                    gradient.addColorStop(0.5, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.opacity + ")");
+                    gradient.addColorStop(1, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", 0)");
+                    surface.fillStyle = gradient;
+                    surface.arc(p.location.x, p.location.y, p.radius, Math.PI * 2, false);
+                    surface.fill();
+                    p.death--;
+                    p.radius++;
+                    p.location.x += (p.speed.x);
+                    p.location.y += (p.speed.y);
 
-            //         //regenerate particles
-            //         if (p.death < 0 || p.radius < 0) {
-            //             //a brand new particle replacing the dead one
-            //             particles[i] = new particle();
-            //         }
-            //     }
+                    //regenerate particles
+                    if (p.death < 0 || p.radius < 0) {
+                        //a brand new particle replacing the dead one
+                        particles[i] = new particle();
+                    }
+                }
 
-            //     requestAnimFrame(ParticleAnimation);
-            // }
+                requestAnimFrame(ParticleAnimation);
+            }
 
-
-            // ParticleAnimation();
-
+            ParticleAnimation();
 
             drawPoints([firePos], new ol.style.Style({
                 image: new ol.style.Icon({
-                    src: '/images/fire.png',
-                    // img: space,
-                    // imgSize: [canvasWidth, canvasHeight]
+                    // src: '/images/fire.png',
+                    img: space,
+                    imgSize: [canvasWidth, canvasHeight]
                 })
             }));
             // drawPoints([truckPos1], new ol.style.Style({
@@ -251,6 +247,7 @@
                 console.log(err);
             });
 
+
             // var ws = new WebSocket('ws://192.168.99.107:12345');
             //
             // ws.onopen = function (evt) {
@@ -274,23 +271,6 @@
                     params: params || {}
                 }));
             }
-
-            // function startAnimation() {
-            //     if (animating) {
-            //         stopAnimation(false);
-            //     } else {
-            //         animating = true;
-            //         var now = new Date().getTime();
-            //         var speed = speedInput.value;
-            //         startButton.textContent = 'Cancel Animation';
-            //         // hide geoMarker
-            //         geoMarker.setStyle(null);
-            //         // just in case you pan somewhere else
-            //         map.getView().setCenter(center);
-            //         map.on('postcompose', moveFeature);
-            //         map.render();
-            //     }
-            // }
 
             function drawPoints(pts, style) {
                 var points = [];
@@ -341,7 +321,7 @@
                         lines.map(function(value) {
                             list = _.concat(list, value);
                         });
-                        draw(list, routeStyle, truckStyle, 20, 1000);
+                        draw(list, routeStyle, truckStyle, 50, 2000);
                         // drawLines(list, routeStyle);
 
                         function draw(list, style, truckStyle, steps, time) {
@@ -428,7 +408,6 @@
                                 }
                             }
                         }
-
                     } else {
                         console.error(res);
                     }
