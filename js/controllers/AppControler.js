@@ -5,7 +5,7 @@
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', 'Route', 'FullFeatures', '$timeout', function($scope, $rootScope, $http, $window, Route, FullFeatures, $timeout) {
+        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', '$state', 'Route', 'FullFeatures', '$timeout', function($scope, $rootScope, $http, $window, $state, Route, FullFeatures, $timeout) {
             $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
@@ -25,7 +25,6 @@
                 units: 'degrees'
             });
             var layerLHK = new ol.layer.Image();
-
             var map = new ol.Map({
                 target: 'map',
                 layers: [
@@ -44,9 +43,38 @@
             map.getView().setResolution(resolution);
 
             initMap(url);
-            drawPath(truckPos1, firePos, null, '/images/firetruck.png');
-            drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
 
+            var sock = new SockJS("http://192.168.99.69:8083/emergency/websocket");
+            sock.onopen = function() {
+                console.log('open');
+                sock.send('test');
+            };
+
+            sock.onmessage = function(e) {
+                var data = JSON.parse(e.data);
+                firePos = [parseFloat(data.info.lon), parseFloat(data.info.lat)];
+                console.log(firePos);
+                $state.go('app.fire');
+                map.getView().animate({
+                    center: firePos,
+                    duration: 1000
+                });
+                drawFeatures();
+                drawPath(truckPos1, firePos, null, '/images/firetruck.png');
+                drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
+                ParticleAnimation();
+                drawPoints([firePos], new ol.style.Style({
+                    image: new ol.style.Icon({
+                        // src: '/images/fire.png',
+                        img: space,
+                        imgSize: [canvasWidth, canvasHeight]
+                    })
+                }));
+            };
+
+            // sock.onclose = function() {
+            //     console.log('close');
+            // };
 
             // Set canvas drawing surface
             var space = document.createElement("canvas");
@@ -121,15 +149,7 @@
                 requestAnimFrame(ParticleAnimation);
             }
 
-            ParticleAnimation();
 
-            drawPoints([firePos], new ol.style.Style({
-                image: new ol.style.Icon({
-                    // src: '/images/fire.png',
-                    img: space,
-                    imgSize: [canvasWidth, canvasHeight]
-                })
-            }));
             // drawPoints([truckPos1], new ol.style.Style({
             //     image: new ol.style.Icon({
             //         src: '/images/firetruck.png'
@@ -141,125 +161,127 @@
             //     })
             // }));
 
-            FullFeatures.query({
-                type: '救援队伍',
-                keyword: '消防队',
-                point: firePos.join(','),
-                distance: 5000
-            }).then(function(res) {
-                var pts = [];
-                var results = res.data.result.Result[0].Result;
-                results.map(function(result) {
-                    var shape = result.Shape;
-                    var pt = [
-                        parseFloat(shape.slice(0, shape.indexOf(','))),
-                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                    ];
-                    pts.push(pt);
+            function drawFeatures() {
+                FullFeatures.query({
+                    type: '救援队伍',
+                    keyword: '消防队',
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/firefighter.png'
+                        })
+                    }));
+
+                }, function(err) {
+                    console.log(err);
                 });
-                // console.log(pts);
-                drawPoints(pts, new ol.style.Style({
-                    image: new ol.style.Icon({
-                        src: '/images/firefighter.png'
-                    })
-                }));
 
-            }, function(err) {
-                console.log(err);
-            });
-
-            FullFeatures.query({
-                type: '医疗机构',
-                point: firePos.join(','),
-                distance: 5000
-            }).then(function(res) {
-                var pts = [];
-                var results = res.data.result.Result[0].Result;
-                results.map(function(result) {
-                    var shape = result.Shape;
-                    var pt = [
-                        parseFloat(shape.slice(0, shape.indexOf(','))),
-                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                    ];
-                    pts.push(pt);
+                FullFeatures.query({
+                    type: '医疗机构',
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/hospital.png'
+                        })
+                    }));
+                }, function(err) {
+                    console.log(err);
                 });
-                // console.log(pts);
-                drawPoints(pts, new ol.style.Style({
-                    image: new ol.style.Icon({
-                        src: '/images/hospital.png'
-                    })
-                }));
-            }, function(err) {
-                console.log(err);
-            });
 
-            FullFeatures.query({
-                type: '危险源',
-                pageSize: 80,
-                point: firePos.join(','),
-                distance: 5000
-            }).then(function(res) {
-                var pts = [];
-                var results = res.data.result.Result[0].Result;
-                results.map(function(result) {
-                    var shape = result.Shape;
-                    var pt = [
-                        parseFloat(shape.slice(0, shape.indexOf(','))),
-                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                    ];
-                    pts.push(pt);
+                FullFeatures.query({
+                    type: '危险源',
+                    pageSize: 80,
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/facility.png'
+                        })
+                    }));
+
+                }, function(err) {
+                    console.log(err);
                 });
-                // console.log(pts);
-                drawPoints(pts, new ol.style.Style({
-                    image: new ol.style.Icon({
-                        src: '/images/facility.png'
-                    })
-                }));
 
-            }, function(err) {
-                console.log(err);
-            });
+                FullFeatures.query({
+                    type: '消防栓',
+                    pageSize: 50,
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/fireplug.png'
+                        })
+                    }));
 
-            FullFeatures.query({
-                type: '消防栓',
-                pageSize: 50,
-                point: firePos.join(','),
-                distance: 5000
-            }).then(function(res) {
-                var pts = [];
-                var results = res.data.result.Result[0].Result;
-                results.map(function(result) {
-                    var shape = result.Shape;
-                    var pt = [
-                        parseFloat(shape.slice(0, shape.indexOf(','))),
-                        parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                    ];
-                    pts.push(pt);
+                }, function(err) {
+                    console.log(err);
                 });
-                // console.log(pts);
-                drawPoints(pts, new ol.style.Style({
-                    image: new ol.style.Icon({
-                        src: '/images/fireplug.png'
-                    })
-                }));
-
-            }, function(err) {
-                console.log(err);
-            });
+            }
 
 
-            // var ws = new WebSocket('ws://192.168.99.107:12345');
-            //
+            // var ws = new WebSocket('ws://192.168.99.69:8083/emergency/websocket');
+
             // ws.onopen = function (evt) {
             //     console.log('Connection open ...');
             //     ws.send('Hello WebSockets!');
             // };
-            //
+
             // ws.onmessage = function (evt) {
             //     console.log('Received Message: ' + evt.data);
             //     // ws.close();
             // };
-            //
+
             // // ws.onclose = function (evt) {
             // //     console.log('Connection closed.');
             // // };

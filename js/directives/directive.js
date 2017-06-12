@@ -64,7 +64,7 @@
         }
     }])
 
-    .directive('clock', ['$timeout', function($timeout) {
+    .directive('clock', ['$timeout', 'Now', function($timeout, Now) {
         return {
             restrict: 'E',
             template: '<div class="clock"> \
@@ -87,15 +87,14 @@
             link: function(scope, element, attrs) {
                 var vm = scope.vm = {
                     dateTime: {
-                        time: new Date().getHours() + ':' + new Date().getMinutes(),
-                        date: new Date().getMonth() + 1 + '月' + new Date().getDate() + '日',
-                        nongli: '五月十七'
+                        time: Now.time(),
+                        date: Now.date(),
+                        nongli: Now.lunar()
                     }
                 };
 
                 setInterval(function() {
-                    var myDate = new Date();
-                    vm.dateTime.time = myDate.getHours() + ':' + myDate.getMinutes();
+                    vm.dateTime.time = Now.time();
                 }, 60000);
 
                 var sun = document.getElementById('sun');

@@ -7,6 +7,7 @@
     angular.module('emergency', [
         'ngAnimate',
         'FBAngular',
+        'ngRoute',
         'emergency.config',
         'emergency.routers',
         'emergency.directives',
