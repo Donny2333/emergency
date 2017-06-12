@@ -1,21 +1,21 @@
 /**
  * Created by Donny on 17/3/22.
  */
-(function (angular) {
+(function(angular) {
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', 'Route', 'FullFeatures', '$timeout', function ($scope, $rootScope, $http, $window, Route, FullFeatures, $timeout) {
-            $scope.toggleFullScreen = function () {
+        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', 'Route', 'FullFeatures', '$timeout', function($scope, $rootScope, $http, $window, Route, FullFeatures, $timeout) {
+            $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
 
-            $scope.jump = function () {
+            $scope.jump = function() {
                 $window.open('http://111.47.18.22:8082/kpi/kpiController.do?kpi', '_blank');
             };
 
             // var url = 'http://192.168.250.45:6080/arcgis/rest/services/ThemeMap/MapServer';
-            var url = 'http://111.47.18.22:6088/arcgis/rest/services/ThemeMap/MapServer';
+            var url = 'http://111.47.18.22:9008/arcgis/rest/services/ThemeMap/MapServer';
             var extent = [111.63519615524577, 32.373406903804636, 111.72406902381353, 32.413810151683634];
             var truckPos1 = [111.688, 32.38];
             var truckPos2 = [111.7, 32.4];
@@ -48,7 +48,6 @@
             drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
 
 
-            //
             // // Set canvas drawing surface
             // var space = document.createElement("canvas");
             // space.backgroundColor = "red";
@@ -151,10 +150,10 @@
                 keyword: '消防队',
                 point: firePos.join(','),
                 distance: 5000
-            }).then(function (res) {
+            }).then(function(res) {
                 var pts = [];
                 var results = res.data.result.Result[0].Result;
-                results.map(function (result) {
+                results.map(function(result) {
                     var shape = result.Shape;
                     var pt = [
                         parseFloat(shape.slice(0, shape.indexOf(','))),
@@ -169,7 +168,7 @@
                     })
                 }));
 
-            }, function (err) {
+            }, function(err) {
                 console.log(err);
             });
 
@@ -177,10 +176,10 @@
                 type: '医疗机构',
                 point: firePos.join(','),
                 distance: 5000
-            }).then(function (res) {
+            }).then(function(res) {
                 var pts = [];
                 var results = res.data.result.Result[0].Result;
-                results.map(function (result) {
+                results.map(function(result) {
                     var shape = result.Shape;
                     var pt = [
                         parseFloat(shape.slice(0, shape.indexOf(','))),
@@ -194,7 +193,7 @@
                         src: '/images/hospital.png'
                     })
                 }));
-            }, function (err) {
+            }, function(err) {
                 console.log(err);
             });
 
@@ -203,10 +202,10 @@
                 pageSize: 80,
                 point: firePos.join(','),
                 distance: 5000
-            }).then(function (res) {
+            }).then(function(res) {
                 var pts = [];
                 var results = res.data.result.Result[0].Result;
-                results.map(function (result) {
+                results.map(function(result) {
                     var shape = result.Shape;
                     var pt = [
                         parseFloat(shape.slice(0, shape.indexOf(','))),
@@ -214,14 +213,14 @@
                     ];
                     pts.push(pt);
                 });
-                console.log(pts);
+                // console.log(pts);
                 drawPoints(pts, new ol.style.Style({
                     image: new ol.style.Icon({
                         src: '/images/facility.png'
                     })
                 }));
 
-            }, function (err) {
+            }, function(err) {
                 console.log(err);
             });
 
@@ -230,10 +229,10 @@
                 pageSize: 50,
                 point: firePos.join(','),
                 distance: 5000
-            }).then(function (res) {
+            }).then(function(res) {
                 var pts = [];
                 var results = res.data.result.Result[0].Result;
-                results.map(function (result) {
+                results.map(function(result) {
                     var shape = result.Shape;
                     var pt = [
                         parseFloat(shape.slice(0, shape.indexOf(','))),
@@ -248,7 +247,7 @@
                     })
                 }));
 
-            }, function (err) {
+            }, function(err) {
                 console.log(err);
             });
 
@@ -276,22 +275,22 @@
                 }));
             }
 
-            function startAnimation() {
-                if (animating) {
-                    stopAnimation(false);
-                } else {
-                    animating = true;
-                    now = new Date().getTime();
-                    speed = speedInput.value;
-                    startButton.textContent = 'Cancel Animation';
-                    // hide geoMarker
-                    geoMarker.setStyle(null);
-                    // just in case you pan somewhere else
-                    map.getView().setCenter(center);
-                    map.on('postcompose', moveFeature);
-                    map.render();
-                }
-            }
+            // function startAnimation() {
+            //     if (animating) {
+            //         stopAnimation(false);
+            //     } else {
+            //         animating = true;
+            //         var now = new Date().getTime();
+            //         var speed = speedInput.value;
+            //         startButton.textContent = 'Cancel Animation';
+            //         // hide geoMarker
+            //         geoMarker.setStyle(null);
+            //         // just in case you pan somewhere else
+            //         map.getView().setCenter(center);
+            //         map.on('postcompose', moveFeature);
+            //         map.render();
+            //     }
+            // }
 
             function drawPoints(pts, style) {
                 var points = [];
@@ -311,7 +310,7 @@
                 Route.drive({
                     origin: start,
                     destination: end
-                }).then(function (res) {
+                }).then(function(res) {
                     if (res.status === 200) {
                         // console.log(res.data.result);
                         var layerLines;
@@ -326,7 +325,7 @@
                             image: new ol.style.Icon({
                                 src: img || '/images/firetruck.png'
                             })
-                        })
+                        });
                         var steps = res.data.result.routes[0].steps;
                         var routes = [];
                         var lines = [];
@@ -339,7 +338,7 @@
 
 
                         var list = [];
-                        lines.map(function (value) {
+                        lines.map(function(value) {
                             list = _.concat(list, value);
                         });
                         draw(list, routeStyle, truckStyle, 20, 1000);
@@ -347,7 +346,7 @@
 
                         function draw(list, style, truckStyle, steps, time) {
                             drawLines(list.slice(1), routeStyle);
-                            drawAnimatedLine(list[0], list[1], style, truckStyle, steps, time, function () {
+                            drawAnimatedLine(list[0], list[1], style, truckStyle, steps, time, function() {
                                 list.shift();
                                 if (list.length >= 2) {
                                     // drawTrucks([list[0]], truckStyle);
@@ -369,7 +368,7 @@
                                     ]
                                 }),
                                 style: style
-                            })
+                            });
                             map.addLayer(layerLines);
                         }
 
@@ -379,7 +378,7 @@
 
                             var i = 0;
                             var prevLayer;
-                            var ivlDraw = setInterval(function () {
+                            var ivlDraw = setInterval(function() {
                                 if (i > steps) {
                                     clearInterval(ivlDraw);
                                     if (prevLayer) map.removeLayer(prevLayer);
@@ -414,7 +413,7 @@
                                     // map.removeLayer(layerTrucks);
                                 } else {
                                     var trucks = [];
-                                    pos.map(function (point) {
+                                    pos.map(function(point) {
                                         trucks.push(new ol.Feature(new ol.geom.Point(point)));
                                     });
                                     layerTrucks = new ol.layer.Vector({
@@ -433,7 +432,7 @@
                     } else {
                         console.error(res);
                     }
-                }, function (err) {
+                }, function(err) {
                     console.error(err);
                 });
             }

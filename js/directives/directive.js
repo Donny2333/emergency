@@ -160,10 +160,10 @@
         }
     }])
 
-    .directive('barGraph', ['$timeout', function($timeout) {
+    .directive('barGraph', ['$timeout', '$parse', function($timeout, $parse) {
         return {
             restrict: 'E',
-            template: '<svg class="area" width="324px" height="166px"> \
+            template: '<svg class="area" width="325px" height="168px"> \
                         <defs> \
                             <linearGradient id="PSgrad_0" x1="0%" x2="0%" y1="100%" y2="0%"> \
                                 <stop offset="0%" stop-color="rgb(227,182,73)" stop-opacity="1" /> \
@@ -171,69 +171,139 @@
                             </linearGradient> \
                         </defs> \
                         <text id="text_x" font-family="Microsoft YaHei" fill="rgb(75, 112, 140)" font-size="12px" x="200" y="165" style="text-anchor: middle"> \
-                            <tspan x="70">燃料仓库</tspan> \
-                            <tspan x="122">油库</tspan> \
-                            <tspan x="174">燃气设施</tspan> \
-                            <tspan x="226">化工厂</tspan> \
-                            <tspan x="278">烟花仓库</tspan> \
                         </text> \
                         <text id="text_y" font-family="Microsoft YaHei" fill="rgb(75, 112, 140)" font-size="14px" x="10" y="12" style="text-anchor: middle"> \
-                            <tspan x="10" dy="0">40</tspan> \
-                            <tspan x="10" dy="34">30</tspan> \
-                            <tspan x="10" dy="34">20</tspan> \
-                            <tspan x="10" dy="34">10</tspan> \
-                            <tspan x="12" dy="34">0</tspan> \
                         </text> \
-                        <path fill-rule="evenodd" fill="rgb(21, 61, 88)" d="M31.000,141.000 L323.000,141.000 C323.552,141.000 324.000,141.448 324.000,142.000 C324.000,142.552 323.552,143.000 323.000,143.000 L31.000,143.000 C30.448,143.000 30.000,142.552 30.000,142.000 C30.000,141.448 30.448,141.000 31.000,141.000 Z" /> \
-                        <path fill-rule="evenodd" fill="rgb(21, 61, 88)" d="M323.000,75.000 L31.000,75.000 C30.448,75.000 30.000,74.776 30.000,74.500 C30.000,74.224 30.448,74.000 31.000,74.000 L323.000,74.000 C323.552,74.000 324.000,74.224 324.000,74.500 C324.000,74.776 323.552,75.000 323.000,75.000 ZM323.000,41.000 L31.000,41.000 C30.448,41.000 30.000,40.776 30.000,40.500 C30.000,40.224 30.448,40.000 31.000,40.000 L323.000,40.000 C323.552,40.000 324.000,40.224 324.000,40.500 C324.000,40.776 323.552,41.000 323.000,41.000 ZM323.000,6.000 L31.000,6.000 C30.448,6.000 30.000,5.776 30.000,5.500 C30.000,5.224 30.448,5.000 31.000,5.000 L323.000,5.000 C323.552,5.000 324.000,5.224 324.000,5.500 C324.000,5.776 323.552,6.000 323.000,6.000 ZM31.000,107.000 L323.000,107.000 C323.552,107.000 324.000,107.224 324.000,107.500 C324.000,107.776 323.552,108.000 323.000,108.000 L31.000,108.000 C30.448,108.000 30.000,107.776 30.000,107.500 C30.000,107.224 30.448,107.000 31.000,107.000 Z" /> \
-                        <path fill-rule="evenodd" fill="rgb(240, 87, 61)" d="M269.000,141.000 L269.000,67.000 L297.000,67.000 L297.000,141.000 L269.000,141.000 ZM215.000,26.000 L243.000,26.000 L243.000,141.000 L215.000,141.000 L215.000,26.000 ZM161.000,55.000 L189.000,55.000 L189.000,141.000 L161.000,141.000 L161.000,55.000 ZM107.000,87.000 L135.000,87.000 L135.000,141.000 L107.000,141.000 L107.000,87.000 ZM53.000,10.000 L81.000,10.000 L81.000,141.000 L53.000,141.000 L53.000,10.000 Z" /> \
-                        <path fill="url(#PSgrad_0)" d="M269.000,141.000 L269.000,67.000 L297.000,67.000 L297.000,141.000 L269.000,141.000 ZM215.000,26.000 L243.000,26.000 L243.000,141.000 L215.000,141.000 L215.000,26.000 ZM161.000,55.000 L189.000,55.000 L189.000,141.000 L161.000,141.000 L161.000,55.000 ZM107.000,87.000 L135.000,87.000 L135.000,141.000 L107.000,141.000 L107.000,87.000 ZM53.000,10.000 L81.000,10.000 L81.000,141.000 L53.000,141.000 L53.000,10.000 Z" /> \
-            </svg>',
+                        <path fill-rule="evenodd" fill="rgb(21, 61, 88)" d="M31,141 L323,141 C323.552,141 324,141.448 324,142 C324,142.552 323.552,143 323,143 L31,143 C30.448,143 30,142.552 30,142 C30,141.448 30.448,141 31,141 Z" /> \
+                        <path fill-rule="evenodd" fill="rgb(21, 61, 88)" d="M323,75 L31,75 C30.448,75 30,74.776 30,74.500 C30,74.224 30.448,74 31,74 L323,74 C323.552,74 324,74.224 324,74.500 C324,74.776 323.552,75 323,75 ZM323,41 L31,41 C30.448,41 30,40.776 30,40.500 C30,40.224 30.448,40 31,40 L323,40 C323.552,40 324,40.224 324,40.500 C324,40.776 323.552,41 323,41 ZM323,6 L31,6 C30.448,6 30,5.776 30,5.500 C30,5.224 30.448,5 31,5 L323,5 C323.552,5 324,5.224 324,5.500 C324,5.776 323.552,6 323,6 ZM31,107 L323,107 C323.552,107 324,107.224 324,107.500 C324,107.776 323.552,108 323,108 L31,108 C30.448,108 30,107.776 30,107.500 C30,107.224 30.448,107 31,107 Z" /> \
+                    </svg>',
             replace: true,
             link: function(scope, element, attrs) {
-                var dataset = ['燃料仓库', '油库', '燃气设施', '化工厂', '烟花仓库'];
                 var svg = d3.select(element[0]);
-                var tspan = svg.selectAll("tspan");
+                var text_x = svg.selectAll("#text_x");
+                var text_y = svg.selectAll("#text_y");
+
+                var data = JSON.parse(attrs.data);
+                var x0 = 68;
+                var rectStep = 216 / (data.length - 1);
+                var rectWidth = 30;
+
+                scope.$watch(function() {
+                    return attrs.data;
+                }, function(value) {
+                    data = JSON.parse(value);
+                    rectStep = 216 / (data.length - 1);
+                    drawsvg();
+                });
+
+                function drawBar() {
+                    var updateBar = svg.selectAll("rect").data(data);
+                    var enterBar = updateBar.enter();
+                    var exitBar = updateBar.exit();
+
+                    updateBar.attr("x", function(d, i) {
+                            return x0 + rectStep * i - rectWidth / 2;
+                        })
+                        .attr("y", function(d, i) {
+                            return 141;
+                        })
+                        .attr("width", function(d, i) {
+                            return rectWidth;
+                        })
+                        .transition()
+                        .duration(1000)
+                        .ease(d3.easeCubicOut)
+                        .attr("height", function(d) {
+                            return 136 * d.value / 40;
+                        })
+                        .style("transform", function(d) {
+                            return "translate(0, -" + 136 * d.value / 40 + "px)";
+                        })
+                        .attr("fill", "url(#PSgrad_0)");
+
+                    enterBar.append("rect")
+
+                    .attr("x", function(d, i) {
+                            return x0 + rectStep * i - rectWidth / 2;
+                        })
+                        .attr("y", function(d, i) {
+                            // return 136 - 136 * d.value / 40 + 6;
+                            return 141;
+                        })
+                        .attr("width", function(d, i) {
+                            return rectWidth;
+                        })
+                        .transition()
+                        .duration(1000)
+                        .ease(d3.easeCubicOut)
+                        .attr("height", function(d) {
+                            return 136 * d.value / 40;
+                        })
+                        .style("transform", function(d) {
+                            return "translate(0, -" + 136 * d.value / 40 + "px)";
+                        })
+                        .attr("fill", "url(#PSgrad_0)");
+
+                    exitBar.remove();
+                }
 
                 function drawText() {
-                    var text_x = d3.select($('text_x')[0]);
-                    var text_y = d3.select($('text_y')[0]);
-                    var updateText = svg.selectAll("text")
-                        .data(textset);
-                    var enterText = updateText.enter();
-                    var exitText = updateText.exit();
+                    // legend of x
+                    var updateTextX = text_x.selectAll("tspan")
+                        .data(data);
+                    var enterTextX = updateTextX.enter();
+                    var exitTextX = updateTextX.exit();
 
-                    updateText.transition()
-                        .duration(1000)
-                        .ease(d3.easeElastic)
-                        .attr("x", function(d) {
-                            return x0 + delta * d;
+                    updateTextX.attr("x", function(d, i) {
+                            return x0 + rectStep * i;
                         })
-                        .attr("y", function(d) {
-                            return 18;
-                        })
-                        .attr("fill", "white")
-                        .style("text-anchor", "middle")
-                        .style("font-size", "14px")
                         .text(function(d) {
-                            return d + 1;
+                            return d.name;
                         });
 
-                    enterText.append("text")
-                        .attr("x", function(d) {
-                            return x0 + delta * d;
+                    enterTextX.append("tspan")
+                        .attr("x", function(d, i) {
+                            return x0 + rectStep * i;
                         })
-                        .attr("y", function(d) {
-                            return 18;
-                        })
-                        .attr("fill", "white")
-                        .style("text-anchor", "middle")
-                        .style("font-size", "14px")
                         .text(function(d) {
-                            return d + 1;
+                            return d.name;
+                        })
+
+                    exitTextX.remove();
+
+                    // legend of y
+                    var updateTextY = text_y.selectAll("tspan")
+                        .data(data);
+                    var enterTextY = updateTextY.enter();
+                    var exitTextY = updateTextY.exit();
+
+                    updateTextY.attr("x", function(d) {
+                            return 10;
+                        })
+                        .attr("dy", function(d, i) {
+                            return i === 0 ? 0 : 34;
+                        })
+                        .text(function(d, i) {
+                            return (data.length - i - 1) * 10;
                         });
 
-                    exitText.remove();
+                    enterTextY.append("tspan")
+                        .attr("x", function(d) {
+                            return 10;
+                        })
+                        .attr("dy", function(d, i) {
+                            return i === 0 ? 0 : 34;
+                        })
+                        .text(function(d, i) {
+                            return (data.length - i - 1) * 10;
+                        });
+
+                    exitTextY.remove();
+                }
+
+                function drawsvg() {
+                    drawBar();
+                    drawText();
                 }
             }
         }

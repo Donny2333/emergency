@@ -1,7 +1,7 @@
 /**
  * Created by Donny on 17/4/26.
  */
-(function (angular) {
+(function(angular) {
     "use strict";
 
     var prodURL = 'https://172.30.1.246:9527/',

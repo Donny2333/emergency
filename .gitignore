@@ -1,5 +1,5 @@
 .idea
-bower_components/
-build/
-video/
-lib/
+/bower_components/
+/build/
+/video/
+/lib/

@@ -45,8 +45,44 @@
                     author: '吃鱼的小猫',
                     telephone: '188****0697',
                     content: '火势越来越大了，希望没有人受伤啊！'
+                }],
+                bar: [{
+                    name: "燃料仓库",
+                    value: 38
+                }, {
+                    name: "油库",
+                    value: 16
+                }, {
+                    name: "燃气设施",
+                    value: 26
+                }, {
+                    name: "化工厂",
+                    value: 36
+                }, {
+                    name: "烟花仓库",
+                    value: 22
                 }]
             };
+
+            setInterval(function() {
+                vm.bar = [{
+                    name: "燃料仓库",
+                    value: Math.random() * 40
+                }, {
+                    name: "油库",
+                    value: Math.random() * 40
+                }, {
+                    name: "燃气设施",
+                    value: Math.random() * 40
+                }, {
+                    name: "化工厂",
+                    value: Math.random() * 40
+                }, {
+                    name: "烟花仓库",
+                    value: Math.random() * 40
+                }];
+            }, 3000);
+
             var sun = document.getElementById('sun');
             var cloud = document.getElementById('cloud');
 

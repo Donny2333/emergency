@@ -16,6 +16,5 @@
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.withCredentials = true;
     }]);
-
 })
 (angular);

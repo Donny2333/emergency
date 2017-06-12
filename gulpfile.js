@@ -18,7 +18,8 @@ gulp.task('serve', ['js'], function () {
         browserSync.init({
             server: {
                 baseDir: "./"
-            }
+            },
+            port: '10205'
         });
 
         gulp.watch([
