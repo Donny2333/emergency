@@ -9,11 +9,6 @@
             $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
-
-            $scope.jump = function() {
-                $window.open('http://111.47.18.22:8082/kpi/kpiController.do?kpi', '_blank');
-            };
-
             // var url = 'http://192.168.250.45:6080/arcgis/rest/services/ThemeMap/MapServer';
             var url = 'http://111.47.18.22:9008/arcgis/rest/services/ThemeMap/MapServer';
             var extent = [111.63519615524577, 32.373406903804636, 111.72406902381353, 32.413810151683634];
@@ -44,6 +39,19 @@
 
             initMap(url);
 
+            $scope.$on('$locationChangeSuccess', function(event, msg) {
+                var route = _.last(_.split(msg, '/'));
+                if (route === 'kpi') {
+                    var layers = map.getLayers();
+                    console.log(layers);
+                    layers.forEach(function(layer, index) {
+                        if (index !== 0) {
+                            map.removeLayer(layer);
+                        }
+                    })
+                }
+            });
+
             var sock = new SockJS("http://192.168.99.69:8083/emergency/websocket");
             sock.onopen = function() {
                 console.log('open');
@@ -53,7 +61,6 @@
             sock.onmessage = function(e) {
                 var data = JSON.parse(e.data);
                 firePos = [parseFloat(data.info.lon), parseFloat(data.info.lat)];
-                console.log(firePos);
                 $state.go('app.fire');
                 map.getView().animate({
                     center: firePos,
@@ -71,6 +78,25 @@
                     })
                 }));
             };
+
+            $timeout(function() {
+                $state.go('app.fire');
+                map.getView().animate({
+                    center: firePos,
+                    duration: 1000
+                });
+                drawFeatures();
+                drawPath(truckPos1, firePos, null, '/images/firetruck.png');
+                drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
+                ParticleAnimation();
+                drawPoints([firePos], new ol.style.Style({
+                    image: new ol.style.Icon({
+                        // src: '/images/fire.png',
+                        img: space,
+                        imgSize: [canvasWidth, canvasHeight]
+                    })
+                }));
+            }, 5000);
 
             // sock.onclose = function() {
             //     console.log('close');
@@ -146,6 +172,7 @@
                     }
                 }
 
+                map.render();
                 requestAnimFrame(ParticleAnimation);
             }
 
@@ -162,58 +189,6 @@
             // }));
 
             function drawFeatures() {
-                FullFeatures.query({
-                    type: '救援队伍',
-                    keyword: '消防队',
-                    point: firePos.join(','),
-                    distance: 5000
-                }).then(function(res) {
-                    var pts = [];
-                    var results = res.data.result.Result[0].Result;
-                    results.map(function(result) {
-                        var shape = result.Shape;
-                        var pt = [
-                            parseFloat(shape.slice(0, shape.indexOf(','))),
-                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                        ];
-                        pts.push(pt);
-                    });
-                    // console.log(pts);
-                    drawPoints(pts, new ol.style.Style({
-                        image: new ol.style.Icon({
-                            src: '/images/firefighter.png'
-                        })
-                    }));
-
-                }, function(err) {
-                    console.log(err);
-                });
-
-                FullFeatures.query({
-                    type: '医疗机构',
-                    point: firePos.join(','),
-                    distance: 5000
-                }).then(function(res) {
-                    var pts = [];
-                    var results = res.data.result.Result[0].Result;
-                    results.map(function(result) {
-                        var shape = result.Shape;
-                        var pt = [
-                            parseFloat(shape.slice(0, shape.indexOf(','))),
-                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
-                        ];
-                        pts.push(pt);
-                    });
-                    // console.log(pts);
-                    drawPoints(pts, new ol.style.Style({
-                        image: new ol.style.Icon({
-                            src: '/images/hospital.png'
-                        })
-                    }));
-                }, function(err) {
-                    console.log(err);
-                });
-
                 FullFeatures.query({
                     type: '危险源',
                     pageSize: 80,
@@ -261,6 +236,58 @@
                     drawPoints(pts, new ol.style.Style({
                         image: new ol.style.Icon({
                             src: '/images/fireplug.png'
+                        })
+                    }));
+
+                }, function(err) {
+                    console.log(err);
+                });
+
+                FullFeatures.query({
+                    type: '医疗机构',
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/hospital.png'
+                        })
+                    }));
+                }, function(err) {
+                    console.log(err);
+                });
+
+                FullFeatures.query({
+                    type: '救援队伍',
+                    keyword: '消防队',
+                    point: firePos.join(','),
+                    distance: 5000
+                }).then(function(res) {
+                    var pts = [];
+                    var results = res.data.result.Result[0].Result;
+                    results.map(function(result) {
+                        var shape = result.Shape;
+                        var pt = [
+                            parseFloat(shape.slice(0, shape.indexOf(','))),
+                            parseFloat(shape.slice(shape.indexOf(',') + 1, shape.length))
+                        ];
+                        pts.push(pt);
+                    });
+                    // console.log(pts);
+                    drawPoints(pts, new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/firefighter.png'
                         })
                     }));
 
