@@ -249,7 +249,7 @@
             restrict: 'E',
             template: '<svg class="area" width="325px" height="168px"> \
                         <defs> \
-                            <linearGradient id="PSgrad_0" x1="0%" x2="0%" y1="100%" y2="0%"> \
+                            <linearGradient id="mygrad_0" x1="0%" x2="0%" y1="100%" y2="0%"> \
                                 <stop offset="0%" stop-color="rgb(227,182,73)" stop-opacity="1" /> \
                                 <stop offset="100%" stop-color="rgb(242,80,87)" stop-opacity="1" /> \
                             </linearGradient> \
@@ -303,7 +303,7 @@
                         .style("transform", function(d) {
                             return "translate(0, -" + 136 * d.value / 40 + "px)";
                         })
-                        .attr("fill", "url(#PSgrad_0)");
+                        .attr("fill", "url(#mygrad_0)");
 
                     enterBar.append("rect")
 
@@ -326,7 +326,7 @@
                         .style("transform", function(d) {
                             return "translate(0, -" + 136 * d.value / 40 + "px)";
                         })
-                        .attr("fill", "url(#PSgrad_0)");
+                        .attr("fill", "url(#mygrad_0)");
 
                     exitBar.remove();
                 }
