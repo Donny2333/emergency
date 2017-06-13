@@ -368,7 +368,7 @@
                             return i === 0 ? 0 : 34;
                         })
                         .text(function(d, i) {
-                            return (data.length - i - 1) * 10;
+                            return (data.length - i - 1) * 2;
                         });
 
                     enterTextY.append("tspan")
@@ -379,7 +379,7 @@
                             return i === 0 ? 0 : 34;
                         })
                         .text(function(d, i) {
-                            return (data.length - i - 1) * 10;
+                            return (data.length - i - 1) * 2;
                         });
 
                     exitTextY.remove();
