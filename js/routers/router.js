@@ -73,11 +73,11 @@
                     views: {
                         left: {
                             templateUrl: './tpls/kpi/left.html',
-                            controller: 'KpiController'
+                            controller: 'KpiLeftController'
                         },
                         right: {
                             templateUrl: './tpls/kpi/right.html',
-                            controller: 'KpiController'
+                            controller: 'KpiRightController'
                         }
                     }
                 })
