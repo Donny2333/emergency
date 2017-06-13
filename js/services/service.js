@@ -195,9 +195,8 @@
         }
     }])
 
-    .factory('FullFeatures', ['$http', 'Http', function($http, Http) {
-        // var url = 'http://192.168.250.42:8822/TotalFactorQueryWcfService';
-        var url = 'http://111.47.18.22:8090/TotalFactorQueryWcfService';
+    .factory('FullFeatures', ['$http', 'Http', 'URL_CFG', function($http, Http, URL_CFG) {
+        var url = URL_CFG.featureQuery;
 
         return {
             query: function(params) {

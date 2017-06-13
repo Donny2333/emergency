@@ -5,12 +5,11 @@
     'use strict';
 
     angular.module('emergency.controllers', [])
-        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', '$state', 'Route', 'FullFeatures', '$timeout', function($scope, $rootScope, $http, $window, $state, Route, FullFeatures, $timeout) {
+        .controller('AppController', ['$scope', '$rootScope', '$http', '$window', '$state', 'Route', 'FullFeatures', 'URL_CFG', '$timeout', function($scope, $rootScope, $http, $window, $state, Route, FullFeatures, URL_CFG, $timeout) {
             $scope.toggleFullScreen = function() {
                 $rootScope.isFullscreen = !$rootScope.isFullscreen;
             };
-            // var url = 'http://192.168.250.45:6080/arcgis/rest/services/ThemeMap/MapServer';
-            var url = 'http://111.47.18.22:9008/arcgis/rest/services/ThemeMap/MapServer';
+            var url = URL_CFG.map;
             var extent = [111.63519615524577, 32.373406903804636, 111.72406902381353, 32.413810151683634];
             var truckPos1 = [111.688, 32.38];
             var truckPos2 = [111.7, 32.4];
@@ -52,7 +51,7 @@
                 }
             });
 
-            var sock = new SockJS("http://192.168.99.69:8083/emergency/websocket");
+            var sock = new SockJS(URL_CFG.socket);
             sock.onopen = function() {
                 console.log('open');
                 sock.send('test');
@@ -79,24 +78,24 @@
                 }));
             };
 
-            $timeout(function() {
-                $state.go('app.fire');
-                map.getView().animate({
-                    center: firePos,
-                    duration: 1000
-                });
-                drawFeatures();
-                drawPath(truckPos1, firePos, null, '/images/firetruck.png');
-                drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
-                ParticleAnimation();
-                drawPoints([firePos], new ol.style.Style({
-                    image: new ol.style.Icon({
-                        // src: '/images/fire.png',
-                        img: space,
-                        imgSize: [canvasWidth, canvasHeight]
-                    })
-                }));
-            }, 5000);
+            // $timeout(function() {
+            //     $state.go('app.fire');
+            //     map.getView().animate({
+            //         center: firePos,
+            //         duration: 1000
+            //     });
+            //     drawFeatures();
+            //     drawPath(truckPos1, firePos, null, '/images/firetruck.png');
+            //     drawPath(truckPos2, firePos, '#aeea92', '/images/ambulance.png');
+            //     ParticleAnimation();
+            //     drawPoints([firePos], new ol.style.Style({
+            //         image: new ol.style.Icon({
+            //             // src: '/images/fire.png',
+            //             img: space,
+            //             imgSize: [canvasWidth, canvasHeight]
+            //         })
+            //     }));
+            // }, 5000);
 
             // sock.onclose = function() {
             //     console.log('close');

@@ -15,6 +15,7 @@
     "ol4": "^4.0.1",
     "lodash": "^4.17.4",
     "jquery": "^3.2.1",
-    "sockjs-client": "^1.1.4"
+    "sockjs-client": "^1.1.4",
+    "angular-route": "^1.6.4"
   }
 }
