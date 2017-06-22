@@ -121,7 +121,7 @@
                 var dd = D.getDate();
 
                 function getFullYear(d) { // 修正firefox下year错误
-                    yr = d.getYear();
+                    var yr = d.getYear();
                     if (yr < 1000)
                         yr += 1900;
                     return yr;
