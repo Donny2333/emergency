@@ -1,65 +1,68 @@
 <div class="watcher">
-    <video class="video" autoplay controls loop>
-        <!--<source src="http://192.168.99.107/ajide.mp4" type="video/mp4">-->
-        <source src="http://111.47.18.22:8090/media/huozai.mp4" type="video/mp4">
-        <!--<source src="/video/mov.mp4" type="video/mp4">-->
-        您的浏览器不支持 video 属性。
-    </video>
-    <svg class="watcherBg" width="100%" height="100%">
-        <defs>
-            <clipPath id="svgPath">
-                <path d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334
-                      L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z" />
-            </clipPath>
-            <radialGradient id="inlineShadow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0" style="stop-color:#ffffff;stop-opacity:0" />
-                <stop offset="100%" style="stop-color:#00e8ff;stop-opacity:.2" />
-            </radialGradient>
-        </defs>
-        <!--<path stroke="rgb(29, 198, 241)" stroke-width="4px" fill="none"-->
-        <!--d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334-->
-        <!--L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z"/>-->
-    </svg>
-    <level-bar level="vm.level"></level-bar>
-    <svg class="lvlBox" viewBox="0 0 365 36" enable-background="new 0 0 365 36">
-        <path fill="#74AE45" d="M0,0h84l14,18L84,36H0V0z" />
-        <path fill="#E3B649" d="M89,0h84l14,18l-14,18H89l14-18.286L89,0z" />
-        <path fill="#EF8645" d="M178,0h84l14,18l-14,18h-84l14-18.286L178,0z" />
-        <path fill="#F25057" d="M267,0h84l14,18l-14,18h-84l14-18.286L267,0z" />
-        <text x="15" y="23" fill="white" style="font-size: 14px">轻危险级</text>
-        <text x="112" y="23" fill="white" style="font-size: 14px">中危险级</text>
-        <text x="195" y="23" fill="white" style="font-size: 14px">严重危险级</text>
-        <text x="285" y="23" fill="white" style="font-size: 14px">仓库危险级</text>
-    </svg>
+  <video class="video" autoplay controls loop>
+    <!-- <source src="http://192.168.99.107/ajide.mp4" type="video/mp4"> -->
+    <!-- <source src="http://111.47.18.22:8090/media/huozai.mp4" type="video/mp4"> -->
+    <source src="/video/mov.mp4" type="video/mp4">
+    您的浏览器不支持 video 属性。
+  </video>
+  <svg class="watcherBg" width="100%" height="100%">
+    <defs>
+      <clipPath id="svgPath">
+        <path d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334
+                      L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z"/>
+      </clipPath>
+      <radialGradient id="inlineShadow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="0" style="stop-color:#ffffff;stop-opacity:0"/>
+        <stop offset="100%" style="stop-color:#00e8ff;stop-opacity:.2"/>
+      </radialGradient>
+    </defs>
+    <!--<path stroke="rgb(29, 198, 241)" stroke-width="4px" fill="none"-->
+    <!--d="M405,3 L289.046,3 L272.815,16 L22.637,16 L3,29 L2.985,309.334-->
+    <!--L21.970,323 L405.165,323 L423,310.720 L423,18.515 L405,3 Z"/>-->
+  </svg>
+  <level-bar level="vm.level"></level-bar>
+  <svg class="lvlBox" viewBox="0 0 365 36" enable-background="new 0 0 365 36">
+    <path fill="#74AE45" d="M0,0h84l14,18L84,36H0V0z"/>
+    <path fill="#E3B649" d="M89,0h84l14,18l-14,18H89l14-18.286L89,0z"/>
+    <path fill="#EF8645" d="M178,0h84l14,18l-14,18h-84l14-18.286L178,0z"/>
+    <path fill="#F25057" d="M267,0h84l14,18l-14,18h-84l14-18.286L267,0z"/>
+    <text x="15" y="23" fill="white" style="font-size: 14px">轻危险级</text>
+    <text x="112" y="23" fill="white" style="font-size: 14px">中危险级</text>
+    <text x="195" y="23" fill="white" style="font-size: 14px">严重危险级</text>
+    <text x="285" y="23" fill="white" style="font-size: 14px">仓库危险级</text>
+  </svg>
 </div>
 <div class="house">
-    <div class="title">火灾房屋信息</div>
-    <house></house>
-    <div class="discription">
-        <div class="line">建造年份：<span>2001年</span></div>
-        <div class="line">建筑结构：<span>钢筋混泥土</span></div>
-        <div class="line">层数：<span>17层</span></div>
-        <div class="line">居住人数：<span>500人</span></div>
-    </div>
+  <div class="title">火灾房屋信息</div>
+  <house></house>
+  <div class="discription">
+    <div class="line">建造年份：<span>2001年</span></div>
+    <div class="line">建筑结构：<span>钢筋混泥土</span></div>
+    <div class="line">层数：<span>17层</span></div>
+    <div class="line">居住人数：<span>500人</span></div>
+  </div>
 </div>
 <div class="people">
-    <div class="title">火灾周边人口密度</div>
-    <svg id="pie" height="300" width="400">
-        <marker id="circle" markerWidth="10" markerHeight="10" refx="5" refy="5">
-            <circle cx="5" cy="5" r="3" stroke="none" fill="#c0c0c0" />
-        </marker>
-        <circle cx="150" cy="175" r="50" fill="rgba(255,180,0,.35)"></circle>
-        <circle cx="150" cy="175" r="75" fill="rgba(255,180,0,.3)"></circle>
-        <circle cx="150" cy="175" r="100" fill="rgba(255,180,0,.15)"></circle>
-        <circle cx="150" cy="175" r="0" fill="rgba(255,180,0,.2)" stroke="rgba(255,180,0, 0.3)">
-            <animate attributeName="r" from="50" to="100" begin="0s" dur="2s" repeatCount="indefinite" />
-            <animate attributeName="opacity" from="1" to="0" begin="0s" dur="2s" repeatCount="indefinite" />
-        </circle>
-        <path d="M162.5,200L200,275L400,275" fill="none" stroke="#c0c0c0" stroke-width="1" marker-start="url(#circle)"></path>
-        <path d="M212.5,206.25L275,237.5L400,237.5" fill="none" stroke="#c0c0c0" stroke-width="1" marker-start="url(#circle)"></path>
-        <path d="M219,106L238.5,86.5L400,86.5" fill="none" stroke="#c0c0c0" stroke-width="1" marker-start="url(#circle)"></path>
-        <text x="250" y="275" fill="white" style="font-size: 14px;">200m内 100人</text>
-        <text x="280" y="237.5" fill="white" style="font-size: 14px;">500m内 300人</text>
-        <text x="280" y="86.5" fill="white" style="font-size: 14px;">1km内 800人</text>
-    </svg>
+  <div class="title">火灾周边人口密度</div>
+  <svg id="pie" height="300" width="400">
+    <marker id="circle" markerWidth="10" markerHeight="10" refx="5" refy="5">
+      <circle cx="5" cy="5" r="3" stroke="none" fill="#c0c0c0"/>
+    </marker>
+    <circle cx="150" cy="175" r="50" fill="rgba(255,180,0,.35)"></circle>
+    <circle cx="150" cy="175" r="75" fill="rgba(255,180,0,.3)"></circle>
+    <circle cx="150" cy="175" r="100" fill="rgba(255,180,0,.15)"></circle>
+    <circle cx="150" cy="175" r="0" fill="rgba(255,180,0,.2)" stroke="rgba(255,180,0, 0.3)">
+      <animate attributeName="r" from="50" to="100" begin="0s" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" from="1" to="0" begin="0s" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M162.5,200L200,275L400,275" fill="none" stroke="#c0c0c0" stroke-width="1"
+          marker-start="url(#circle)"></path>
+    <path d="M212.5,206.25L275,237.5L400,237.5" fill="none" stroke="#c0c0c0" stroke-width="1"
+          marker-start="url(#circle)"></path>
+    <path d="M219,106L238.5,86.5L400,86.5" fill="none" stroke="#c0c0c0" stroke-width="1"
+          marker-start="url(#circle)"></path>
+    <text x="250" y="275" fill="white" style="font-size: 14px;">200m内 100人</text>
+    <text x="280" y="237.5" fill="white" style="font-size: 14px;">500m内 300人</text>
+    <text x="280" y="86.5" fill="white" style="font-size: 14px;">1km内 800人</text>
+  </svg>
 </div>

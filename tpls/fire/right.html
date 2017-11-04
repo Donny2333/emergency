@@ -1,41 +1,41 @@
 <div style="display: flex;flex-direction: row;align-self: flex-end;">
-    <clock></clock>
+  <clock></clock>
 </div>
 <div class="brigade">
-    <div class="title">消防信息</div>
-    <ul class="brigade-list">
-        <li ng-repeat="brigade in vm.brigades" class="brigade-item">
-            <img src="/images/firefighter.png">
-            <div class="brigade-text">
-                <span>{{brigade.name}}</span>
-                <span class="brigade-text-num">
+  <div class="title">消防信息</div>
+  <ul class="brigade-list">
+    <li ng-repeat="brigade in vm.brigades" class="brigade-item">
+      <img src="/images/firefighter.png">
+      <div class="brigade-text">
+        <span>{{brigade.name}}</span>
+        <span class="brigade-text-num">
                     <img src="/images/position.png">
                     <span>{{brigade.distance}}</span>
                 <img src="/images/clock.png">
                 <span>{{brigade.time}}</span>
                 </span>
-            </div>
-            <a class="phone" href="tel:10086">
-                <img src="/images/phone.png">
-            </a>
-        </li>
-    </ul>
+      </div>
+      <a class="phone" href="tel:10086">
+        <img src="/images/phone.png">
+      </a>
+    </li>
+  </ul>
 </div>
 <div class="facility">
-    <div class="title">周边易燃设施</div>
-    <bar-graph data="{{vm.bar}}"></bar-graph>
+  <div class="title">周边易燃设施</div>
+  <bar-graph data="{{vm.bar}}"></bar-graph>
 </div>
 <div class="weibo">
-    <ul class="weibo-list">
-        <li class="weibo-item" ng-repeat="weibo in vm.weibos">
-            <img height="42" width="42" ng-src="{{weibo.avatar}}">
-            <div class="weibo-text">
-                <div>
-                    <span class="weibo-author">{{weibo.author}}</span>
-                    <span>{{weibo.telephone}}</span>
-                </div>
-                <div class="weibo-content">{{weibo.content}}</div>
-            </div>
-        </li>
-    </ul>
+  <ul class="weibo-list">
+    <li class="weibo-item" ng-repeat="weibo in vm.weibos">
+      <img height="42" width="42" ng-src="{{weibo.avatar}}">
+      <div class="weibo-text">
+        <div>
+          <span class="weibo-author">{{weibo.author}}</span>
+          <span>{{weibo.telephone}}</span>
+        </div>
+        <div class="weibo-content">{{weibo.content}}</div>
+      </div>
+    </li>
+  </ul>
 </div>

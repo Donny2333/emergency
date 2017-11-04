@@ -2,10 +2,10 @@
  * Created by Donny on 17/3/22.
  */
 (function (angular) {
-    'use strict';
+  'use strict';
 
-    angular.module('emergency.controllers')
-        .controller('TransportController', function () {
+  angular.module('emergency.controllers')
+    .controller('TransportController', function () {
 
-        })
+    })
 })(angular);

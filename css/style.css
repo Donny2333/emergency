@@ -1,749 +1,726 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Microsoft YaHei";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei";
 }
 
 html,
 body {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background-color: #0c0d1f;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0c0d1f;
 }
 
 ul,
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none
+  text-decoration: none
 }
 
 .fireworks {
-    position: absolute;
-    z-index: 1000;
-    pointer-events: none;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
 }
-
 
 /****************** app *****************/
 
 #map {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    /*background-image: url("../images/map.png");*/
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("../images/map.png");
 }
-
 
 /****************** head *****************/
 
 .head {
-    position: absolute;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    width: 100%;
-    background-image: url("../images/head.png");
-    padding-left: 68px;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  width: 100%;
+  background-image: url("../images/head.png");
+  padding-left: 68px;
+  cursor: pointer;
 }
 
 .title {
-    font-size: 34px;
-    color: white;
-    font-weight: bold;
-    line-height: 1.882;
+  font-size: 34px;
+  color: white;
+  font-weight: bold;
+  line-height: 1.882;
 }
-
 
 /****************** nav *****************/
 
 .nav {
-    display: flex;
-    margin-left: 50px;
-    align-self: flex-end;
+  display: flex;
+  margin-left: 50px;
+  align-self: flex-end;
 }
 
 ul.nav > li {
-    margin-right: -5px;
-    width: 140px;
-    height: 50px;
-    background-image: url("../images/tab_normal.png");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  margin-right: -5px;
+  width: 140px;
+  height: 50px;
+  background-image: url("../images/tab_normal.png");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 ul.nav > li.active,
 ul.nav > li:hover {
-    background-image: url("../images/tab_selected.png");
+  background-image: url("../images/tab_selected.png");
 }
 
 ul.nav > li > a {
-    font-size: 20px;
-    color: rgb(87, 249, 255);
-    font-weight: bold;
-    line-height: 3.2;
+  font-size: 20px;
+  color: rgb(87, 249, 255);
+  font-weight: bold;
+  line-height: 3.2;
 }
 
 ul.nav > li.active > a,
 ul.nav > li:hover > a {
-    font-size: 20px;
-    color: rgb(180, 212, 255);
-    font-weight: bold;
-    line-height: 3.2;
+  font-size: 20px;
+  color: rgb(180, 212, 255);
+  font-weight: bold;
+  line-height: 3.2;
 }
-
 
 /****************** panel *****************/
 
 .left,
 .right {
-    position: absolute;
-    z-index: 100;
-    margin: 80px 10px 0;
-    margin-top: 80px;
-    height: 978px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  position: absolute;
+  z-index: 100;
+  margin: 80px 10px 0;
+  margin-top: 80px;
+  height: 978px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .left {
-    left: 5px;
+  left: 5px;
 }
 
 .right {
-    right: 5px;
+  right: 5px;
 }
 
 .left.ng-enter {
-    animation: slideInLeft 0.3s ease-in;
+  animation: slideInLeft 0.3s ease-in;
 }
 
 .left.ng-leave {
-    animation: slideOutLeft 0.3s ease-in;
+  animation: slideOutLeft 0.3s ease-in;
 }
 
 .right.ng-enter {
-    animation: slideInRight 0.3s ease-in;
+  animation: slideInRight 0.3s ease-in;
 }
 
 .right.ng-leave {
-    animation: slideOutRight 0.3s ease-in;
+  animation: slideOutRight 0.3s ease-in;
 }
-
 
 /* slide in from the left */
 
 @keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
-
 
 /* slide out to the left */
 
 @keyframes slideOutLeft {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
-
 
 /* slide out to the right */
 
 @keyframes slideOutRight {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(100%);
-    }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
-
 
 /* slide in from the right */
 
 @keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
-
 
 /****************** fire *****************/
 
 .watcher {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 324px;
-    width: 424px;
-    align-items: center;
-    justify-content: center;
-    clip-path: url("#svgPath");
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 324px;
+  width: 424px;
+  align-items: center;
+  justify-content: center;
+  clip-path: url("#svgPath");
 }
 
 .watcher:after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    height: 100%;
-    width: 100%;
-    background: url("../images/bg1.png") no-repeat;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: 100%;
+  width: 100%;
+  background: url("../images/bg1.png") no-repeat;
+  pointer-events: none;
 }
 
 .watcher > .video {
-    position: absolute;
-    width: 100%;
-    z-index: -10;
-    top: 0;
-    left: 1px;
+  position: absolute;
+  width: 100%;
+  z-index: -10;
+  top: 0;
+  left: 1px;
 }
 
 .watcher > .watcherBg {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }
 
 .watcher > .lvlBar {
-    position: absolute;
-    height: 30px;
-    width: 100%;
-    bottom: 52px;
+  position: absolute;
+  height: 30px;
+  width: 100%;
+  bottom: 52px;
 }
 
 .watcher > .lvlBox {
-    position: absolute;
-    height: 36px;
-    width: 100%;
-    bottom: 12px;
+  position: absolute;
+  height: 36px;
+  width: 100%;
+  bottom: 12px;
 }
-
 
 /****************** house *****************/
 
 .house {
-    position: relative;
-    height: 304px;
-    width: 421px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: url("/images/bg2.png");
+  position: relative;
+  height: 304px;
+  width: 421px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: url("/images/bg2.png");
 }
 
 .house > .title {
-    position: absolute;
-    top: -8px;
-    left: 25px;
-    font-size: 20px;
-    color: rgb(238, 238, 238);
-    font-weight: bold;
-    line-height: 2.6;
-    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: -8px;
+  left: 25px;
+  font-size: 20px;
+  color: rgb(238, 238, 238);
+  font-weight: bold;
+  line-height: 2.6;
+  background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .discription {
-    display: flex;
-    flex-direction: column;
-    height: 176px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  height: 176px;
+  justify-content: space-between;
 }
 
 .discription > .line {
-    font-size: 14px;
-    color: #afc8d9;
+  font-size: 14px;
+  color: #afc8d9;
 }
 
 .line > span {
-    color: #eeeeee;
+  color: #eeeeee;
 }
-
 
 /****************** people *****************/
 
 .people {
-    position: relative;
-    margin-left: -14px;
-    height: 312px;
-    width: 436px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: url("/images/bg3.png");
+  position: relative;
+  margin-left: -14px;
+  height: 312px;
+  width: 436px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: url("/images/bg3.png");
 }
 
 .people > .title {
-    position: absolute;
-    top: 5px;
-    left: 40px;
-    font-size: 20px;
-    color: rgb(238, 238, 238);
-    font-weight: bold;
-    line-height: 2.6;
-    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 5px;
+  left: 40px;
+  font-size: 20px;
+  color: rgb(238, 238, 238);
+  font-weight: bold;
+  line-height: 2.6;
+  background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
 
 /****************** legend *****************/
 
 .legend {
-    height: 185px;
-    width: 94px;
-    background: url("/images/bg4.png");
+  height: 185px;
+  width: 94px;
+  background: url("/images/bg4.png");
 }
-
 
 /****************** clock *****************/
 
 .clock {
-    display: flex;
-    height: 185px;
-    width: 420px;
-    background: url("/images/bg5.png");
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  height: 185px;
+  width: 420px;
+  background: url("/images/bg5.png");
+  justify-content: center;
+  align-items: center;
 }
 
 .weather-icon {
-    margin: 15px;
+  margin: 15px;
 }
 
 .weather-text {
-    margin-top: 38px;
-    height: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  margin-top: 38px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .weather-text > .wind {
-    font-size: 30px;
-    color: rgb(254, 255, 255);
-    line-height: 1.067;
+  font-size: 30px;
+  color: rgb(254, 255, 255);
+  line-height: 1.067;
 }
 
 .weather-text > .temperature {
-    font-size: 14px;
-    color: #fff36e;
+  font-size: 14px;
+  color: #fff36e;
 }
-
 
 /****************** brigade ****************/
 
 .brigade {
-    position: relative;
-    height: 264px;
-    width: 420px;
-    background: url("/images/bg6.png");
-    align-self: flex-end;
+  position: relative;
+  height: 264px;
+  width: 420px;
+  background: url("/images/bg6.png");
+  align-self: flex-end;
 }
 
 .brigade > .title {
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    font-size: 20px;
-    color: rgb(238, 238, 238);
-    font-weight: bold;
-    line-height: 2.6;
-    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  font-size: 20px;
+  color: rgb(238, 238, 238);
+  font-weight: bold;
+  line-height: 2.6;
+  background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .brigade-list {
-    position: absolute;
-    top: 60px;
-    left: 30px;
-    overflow-x: auto;
-    height: 180px;
-    width: 360px;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  overflow-x: auto;
+  height: 180px;
+  width: 360px;
 }
 
 .brigade-item {
-    display: flex;
-    align-items: center;
-    height: 60px;
-    width: 100%;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(29, 198, 241, 0.2);
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(29, 198, 241, 0.2);
 }
 
 .brigade-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .brigade-text {
-    height: 45px;
-    width: 230px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #fefefe;
+  height: 45px;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fefefe;
 }
 
 .brigade-text-num {
-    display: flex;
-    align-items: center;
-    color: #3ff8fb;
-    margin-left: -10px;
+  display: flex;
+  align-items: center;
+  color: #3ff8fb;
+  margin-left: -10px;
 }
 
 .brigade-text-num > * {
-    margin-left: 8px;
+  margin-left: 8px;
 }
-
 
 /***************** facility ****************/
 
 .facility {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 269px;
-    width: 438px;
-    background: url("/images/bg7.png");
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 269px;
+  width: 438px;
+  background: url("/images/bg7.png");
 }
 
 .facility > .title {
-    position: absolute;
-    top: 5px;
-    left: 40px;
-    font-size: 20px;
-    color: rgb(238, 238, 238);
-    font-weight: bold;
-    line-height: 2.6;
-    background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 5px;
+  left: 40px;
+  font-size: 20px;
+  color: rgb(238, 238, 238);
+  font-weight: bold;
+  line-height: 2.6;
+  background-image: -webkit-gradient(linear, 0 0, right 0, from(rgb(45, 247, 255)), to(rgb(254, 255, 210)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .facility > .area {
-    margin-top: 40px;
+  margin-top: 40px;
 }
-
 
 /****************** weibo *****************/
 
 .weibo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 244px;
-    width: 436px;
-    background: url("/images/bg8.png");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 244px;
+  width: 436px;
+  background: url("/images/bg8.png");
 }
 
 .weibo-list {
-    height: 200px;
-    width: 380px;
-    display: flex;
-    flex-direction: column;
-    overflow-x: auto;
+  height: 200px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
 }
 
 .weibo-item {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(29, 198, 241, 0.2);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(29, 198, 241, 0.2);
 }
 
 .weibo-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .weibo-text {
-    margin-left: 10px;
-    font-size: 12px;
-    color: #e9eda8;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #e9eda8;
 }
 
 .weibo-author {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .weibo-content {
-    color: #afc8d9;
+  color: #afc8d9;
 }
-
 
 /****************** struct *****************/
 
 .struct {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 320px;
-    width: 500px;
-    background: url("/images/bg01.png") no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  width: 500px;
+  background: url("/images/bg01.png") no-repeat;
 }
 
 .struct > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: 10px;
-    left: 25px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: 10px;
+  left: 25px;
 }
 
 .struct > svg {
-    margin-top: 50px;
-    margin-left: -30px;
+  margin-top: 50px;
+  margin-left: -30px;
 }
-
 
 /****************** analyse *****************/
 
 .analyse {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
-    width: 500px;
-    margin-top: -50px;
-    background: url("/images/bg02.png") no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 500px;
+  margin-top: -50px;
+  background: url("/images/bg02.png") no-repeat;
 }
 
 .analyse > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: -4px;
-    left: 25px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: -4px;
+  left: 25px;
 }
 
 .analyse > svg {
-    margin-top: 30px;
-    margin-left: -10px;
+  margin-top: 30px;
+  margin-left: -10px;
 }
-
 
 /****************** employee *****************/
 
 .employee {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 276px;
-    width: 513px;
-    margin-top: -70px;
-    margin-left: -10px;
-    background: url("/images/bg03.png") no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 276px;
+  width: 513px;
+  margin-top: -70px;
+  margin-left: -10px;
+  background: url("/images/bg03.png") no-repeat;
 }
 
 .employee > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: 10px;
-    left: 36px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: 10px;
+  left: 36px;
 }
 
 .employee > svg {
-    margin-top: 40px;
-    margin-left: 20px;
+  margin-top: 40px;
+  margin-left: 20px;
 }
-
 
 /****************** statistics *****************/
 
 .statistics {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 205px;
-    width: 500px;
-    background: url("/images/bg04.png") no-repeat;
-    align-self: flex-end;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 205px;
+  width: 500px;
+  background: url("/images/bg04.png") no-repeat;
+  align-self: flex-end;
 }
 
 .statistics > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: -5px;
-    left: 20px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: -5px;
+  left: 20px;
 }
 
 .statistics-list {
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-aroun;
-    height: 120px;
-    width: 450px;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-aroun;
+  height: 120px;
+  width: 450px;
 }
 
 .statistics-item {
-    display: flex;
-    height: 50px;
-    width: 150px;
-    color: #bfbfbf;
-    font-size: 12px;
+  display: flex;
+  height: 50px;
+  width: 150px;
+  color: #bfbfbf;
+  font-size: 12px;
 }
 
 .statistics-item > img {
-    height: 36px;
-    width: 36px;
-    margin-right: 10px;
+  height: 36px;
+  width: 36px;
+  margin-right: 10px;
 }
 
 .statistics-text {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .statistics-value {
-    font-size: 20px;
-    color: white;
+  font-size: 20px;
+  color: white;
 }
-
 
 /****************** news *****************/
 
 .news {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 254px;
-    width: 500px;
-    background: url("/images/bg05.png") no-repeat;
-    align-self: flex-end;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 254px;
+  width: 500px;
+  background: url("/images/bg05.png") no-repeat;
+  align-self: flex-end;
 }
 
 .news > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: 8px;
-    left: 20px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: 8px;
+  left: 20px;
 }
 
 .news > .news-list {
-    margin-top: 40px;
-    padding: 0 15px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 180px;
-    justify-content: space-around;
+  margin-top: 40px;
+  padding: 0 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+  justify-content: space-around;
 }
 
 .news-list > .news-item {
-    display: flex;
-    flex-direction: row;
-    color: white;
-    font-size: 14px;
-    line-height: 1.571;
-    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  font-size: 14px;
+  line-height: 1.571;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+  justify-content: space-around;
 }
 
 .news-text {
-    width: 360px;
+  width: 360px;
 }
 
 .news-text .news-content {
-    color: #b2b2b2;
-    font-size: 12px;
+  color: #b2b2b2;
+  font-size: 12px;
 }
 
 .news-text .news-date {
-    float: right;
-    margin-right: 6px;
-    color: #7c9cb2;
-    font-size: 12px;
+  float: right;
+  margin-right: 6px;
+  color: #7c9cb2;
+  font-size: 12px;
 }
-
 
 /****************** segment *****************/
 
 .segment {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 280px;
-    width: 518px;
-    background: url("/images/bg06.png") no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 280px;
+  width: 518px;
+  background: url("/images/bg06.png") no-repeat;
 }
 
 .segment > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: 10px;
-    left: 40px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: 10px;
+  left: 40px;
 }
-
 
 /****************** map-graph *****************/
 
 .map-graph {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 242px;
-    width: 518px;
-    background: url("/images/bg07.png") no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 242px;
+  width: 518px;
+  background: url("/images/bg07.png") no-repeat;
 }
 
 .map-graph > .title {
-    font-size: 20px;
-    color: rgb(0, 246, 255);
-    font-weight: bold;
-    line-height: 2.6;
-    position: absolute;
-    top: 6px;
-    left: 25px;
+  font-size: 20px;
+  color: rgb(0, 246, 255);
+  font-weight: bold;
+  line-height: 2.6;
+  position: absolute;
+  top: 6px;
+  left: 25px;
 }
